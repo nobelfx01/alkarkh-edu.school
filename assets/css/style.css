@@ -515,7 +515,7 @@ nav {
   .nav-toggle { display:flex; }
   .panel { min-height:700px; }
   .panel-content { text-align:center !important; padding:60px 20px; }
-  .panel-overlay { background:rgba(7,14,26,0.1) !important; }
+  .panel-overlay { background:rgba(7,14,26,0.0) !important; }
   .panel-desc { margin:0 auto 30px; font-size:16px; }
   .panel-list li { justify-content:center; font-size:15px; }
   .panel-title { font-size:2.2rem; }
