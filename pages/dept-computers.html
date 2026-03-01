@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قسم الحاسبات — ثانوية الكرخ المهنية</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #070e1a;
+  --bg2:     #0a1628;
+  --bg3:     #0d1f38;
+  --card:    #0f2240;
+  --accent:  #e8a020;
+  --accent2: #f0c050;
+  --blue:    #1a6baa;
+  --blue2:   #2a8fd4;
+  --white:   #ffffff;
+  --text:    rgba(255,255,255,0.88);
+  --muted:   rgba(255,255,255,0.48);
+  --border:  rgba(232,160,32,0.22);
+  --border2: rgba(255,255,255,0.07);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+
+/* CANVAS */
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:200;background:rgba(7,14,26,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1160px;margin:0 auto;padding:0 5%;height:68px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-badge{width:40px;height:40px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 16px rgba(232,160,32,.45);}
+.logo-text .school{font-size:11px;color:var(--muted);display:block;}
+.logo-text .dept{font-size:14px;font-weight:800;color:var(--accent2);display:block;}
+.nav-links{display:flex;gap:4px;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:600;padding:7px 14px;border-radius:8px;transition:all .2s;}
+.nav-links a:hover{color:var(--accent);background:rgba(232,160,32,.08);}
+.back-btn{display:flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:13px;font-weight:700;padding:8px 18px;border:1px solid var(--border);border-radius:50px;transition:all .3s;}
+.back-btn:hover{background:rgba(232,160,32,.1);border-color:var(--accent);}
+
+/* HERO */
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;padding-top:68px;background:var(--bg);}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 80% 30%,rgba(26,107,170,.28) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 10% 70%,rgba(232,160,32,.14) 0%,transparent 55%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(232,160,32,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(232,160,32,.045) 1px,transparent 1px);background-size:52px 52px;}
+.hero-stripe{position:absolute;width:3px;height:70%;background:linear-gradient(180deg,transparent,var(--accent),transparent);left:calc(50% + 80px);top:15%;opacity:.15;animation:stripeGlow 4s ease-in-out infinite;}
+@keyframes stripeGlow{0%,100%{opacity:.1;}50%{opacity:.3;}}
+.hero-inner{position:relative;z-index:2;max-width:1160px;margin:0 auto;padding:80px 5% 120px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(26,107,170,.18);border:1px solid rgba(26,107,170,.45);color:#7ec8f5;padding:6px 16px;border-radius:50px;font-size:12px;font-weight:700;margin-bottom:22px;letter-spacing:.5px;animation:fadeUp .8s ease both;}
+.hero h1{font-family:'Tajawal',sans-serif;font-size:clamp(2.4em,5vw,4.2em);font-weight:900;color:var(--white);line-height:1.15;margin-bottom:20px;animation:fadeUp .8s ease .15s both;}
+.hero h1 span{color:var(--accent);}
+.hero-sub{font-size:15px;color:var(--muted);line-height:1.85;margin-bottom:38px;animation:fadeUp .8s ease .3s both;}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp .8s ease .45s both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+
+.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;animation:fadeUp .8s ease .6s both;}
+.stat-card{background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:18px;padding:26px 20px;text-align:center;backdrop-filter:blur(10px);transition:all .3s;position:relative;overflow:hidden;}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .3s;}
+.stat-card:hover{border-color:var(--border);transform:translateY(-4px);}
+.stat-card:hover::before{opacity:1;}
+.stat-num{font-family:'Tajawal',sans-serif;font-size:2.6em;font-weight:900;color:var(--accent);line-height:1;margin-bottom:6px;display:block;}
+.stat-lbl{font-size:12px;color:var(--muted);}
+
+.btn-primary{display:inline-block;padding:13px 32px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--bg);border-radius:50px;font-weight:800;font-size:14px;text-decoration:none;border:none;cursor:pointer;font-family:'Cairo',sans-serif;transition:all .3s;box-shadow:0 6px 22px rgba(232,160,32,.35);}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(232,160,32,.55);}
+.btn-outline{display:inline-block;padding:13px 32px;border:1.5px solid rgba(255,255,255,.22);color:var(--white);border-radius:50px;font-weight:700;font-size:14px;text-decoration:none;transition:all .3s;}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent2);background:rgba(232,160,32,.06);}
+
+/* SECTION SHARED */
+.section-wrap{max-width:1160px;margin:0 auto;padding:100px 5%;}
+.section-tag{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+.section-tag::before{content:'';width:26px;height:2px;background:var(--accent);border-radius:2px;}
+.section-title{font-family:'Tajawal',sans-serif;font-size:clamp(1.8em,3.5vw,2.6em);font-weight:900;color:var(--white);margin-bottom:12px;}
+.section-desc{font-size:15px;color:var(--muted);line-height:1.8;max-width:600px;margin-bottom:44px;}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ═══ SPECIALIZATIONS — full-panel layout ═══ */
+.specs-section{background:var(--bg2);position:relative;overflow:hidden;}
+.specs-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 90% 50%,rgba(26,107,170,.1) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 10% 80%,rgba(232,160,32,.06) 0%,transparent 55%);}
+
+/* section intro */
+.specs-intro{max-width:1160px;margin:0 auto;padding:100px 5% 60px;position:relative;z-index:1;}
+
+/* each specialization = a full panel */
+.spec-panel{
+  position:relative; z-index:1;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:540px;
+  overflow:hidden;
+  border-top:1px solid var(--border2);
+}
+
+/* image half */
+.spec-panel-img{
+  position:relative;
+  overflow:hidden;
+  min-height:480px;
+}
+.spec-panel-img img{
+  width:100%; height:100%;
+  object-fit:cover;
+  filter:brightness(.55) saturate(1.15);
+  transition:transform 1s cubic-bezier(.25,.46,.45,.94);
+}
+.spec-panel:hover .spec-panel-img img{ transform:scale(1.07); }
+
+/* gradient fade toward text — img-right: image is 2nd col, fade left */
+.spec-panel.img-right .spec-panel-img::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(270deg, transparent 40%, var(--bg2) 100%);
+}
+/* img-left: image is 1st col, fade right */
+.spec-panel.img-left .spec-panel-img::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg, transparent 40%, var(--bg2) 100%);
+}
+
+/* img-right → text first col, image second col */
+.spec-panel.img-right{ grid-template-columns:1fr 1fr; }
+.spec-panel.img-right .spec-panel-text{ order:1; }
+.spec-panel.img-right .spec-panel-img { order:2; }
+
+/* img-left → image first col, text second col */
+.spec-panel.img-left{ grid-template-columns:1fr 1fr; }
+.spec-panel.img-left .spec-panel-img { order:1; }
+.spec-panel.img-left .spec-panel-text{ order:2; }
+
+/* number watermark on image */
+.spec-panel-num{
+  position:absolute; top:24px; left:28px;
+  font-family:'Tajawal',sans-serif;
+  font-size:5em; font-weight:900;
+  color:rgba(232,160,32,.2);
+  line-height:1; pointer-events:none;
+  z-index:2;
+}
+
+/* text half */
+.spec-panel-text{
+  display:flex; flex-direction:column;
+  justify-content:center;
+  padding:60px 56px;
+  background:var(--bg2);
+}
+
+.spec-panel-badge{
+  display:inline-flex; align-items:center; gap:10px;
+  background:rgba(232,160,32,.1);
+  border:1px solid var(--border);
+  color:var(--accent2);
+  padding:7px 18px; border-radius:50px;
+  font-size:13px; font-weight:700;
+  margin-bottom:28px; width:fit-content;
+}
+.spec-panel-badge span{ font-size:18px; }
+
+.spec-panel-title{
+  font-family:'Tajawal',sans-serif;
+  font-size:clamp(1.7em,3vw,2.6em);
+  font-weight:900; color:var(--white);
+  line-height:1.2; margin-bottom:20px;
+}
+.spec-panel-title em{ color:var(--accent); font-style:normal; }
+
+.spec-panel-desc{
+  font-size:15px; color:var(--muted);
+  line-height:1.9; margin-bottom:32px;
+}
+
+/* detail bullets */
+.spec-details{ list-style:none; margin-bottom:32px; display:flex; flex-direction:column; gap:12px; }
+.spec-details li{
+  display:flex; align-items:flex-start; gap:12px;
+  font-size:14px; color:rgba(255,255,255,.75); line-height:1.6;
+}
+.spec-details li::before{
+  content:''; flex-shrink:0;
+  width:7px; height:7px;
+  background:var(--accent); border-radius:50%;
+  margin-top:7px;
+  box-shadow:0 0 8px rgba(232,160,32,.6);
+}
+
+/* skill tags */
+.spec-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.stag{
+  padding:6px 16px;
+  background:rgba(232,160,32,.08);
+  border:1px solid rgba(232,160,32,.25);
+  border-radius:50px; font-size:12px;
+  color:var(--accent2); font-weight:600;
+  transition:all .25s;
+}
+.stag:hover{ background:rgba(232,160,32,.18); }
+
+/* divider between panels */
+.spec-divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--border),transparent);
+  max-width:100%;
+}
+
+@media(max-width:860px){
+  .spec-panel{
+    grid-template-columns:1fr !important;
+  }
+  .spec-panel .spec-panel-img,
+  .spec-panel .spec-panel-text{ order:unset !important; }
+  .spec-panel.img-right .spec-panel-img,
+  .spec-panel.img-left  .spec-panel-img{ order:1 !important; }
+  .spec-panel.img-right .spec-panel-text,
+  .spec-panel.img-left  .spec-panel-text{ order:2 !important; }
+  .spec-panel-img{ min-height:260px; }
+  .spec-panel.img-right .spec-panel-img::after,
+  .spec-panel.img-left  .spec-panel-img::after{
+    background:linear-gradient(180deg,transparent 40%,var(--bg2) 100%);
+  }
+  .spec-panel-text{ padding:36px 24px; }
+}
+
+/* NETWORK */
+.net-section{background:var(--bg3);position:relative;overflow:hidden;}
+.net-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(26,107,170,.18) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 90% 100%,rgba(232,160,32,.1) 0%,transparent 55%);}
+
+.net-banner{position:relative;z-index:1;max-width:1160px;margin:0 auto;padding:100px 5% 0;}
+.net-banner-header{text-align:center;margin-bottom:50px;}
+.net-banner-img{border-radius:22px;overflow:hidden;border:1px solid var(--border);box-shadow:0 30px 80px rgba(0,0,0,.5);position:relative;height:380px;}
+.net-banner-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.5) saturate(1.2);transition:transform .8s;}
+.net-banner-img:hover img{transform:scale(1.04);}
+.net-banner-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:40px;background:linear-gradient(135deg,rgba(7,14,26,.7) 0%,rgba(26,107,170,.25) 100%);}
+.net-banner-overlay h3{font-family:'Tajawal',sans-serif;font-size:2.4em;font-weight:900;color:var(--white);text-align:center;text-shadow:0 4px 20px rgba(0,0,0,.5);}
+.net-banner-overlay h3 span{color:var(--accent);}
+
+/* 4 feature cards row */
+.net-features{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:0 5% 100px;position:relative;z-index:1;max-width:1160px;margin:32px auto 0;}
+.feat-card{background:var(--card);border:1px solid var(--border2);border-radius:18px;padding:28px 22px;transition:all .3s;position:relative;overflow:hidden;}
+.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--blue2));opacity:0;transition:opacity .3s;}
+.feat-card:hover{border-color:var(--border);transform:translateY(-6px);box-shadow:0 18px 50px rgba(0,0,0,.35);}
+.feat-card:hover::before{opacity:1;}
+.feat-card-icon{width:44px;height:44px;background:rgba(232,160,32,.12);border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;}
+.feat-card h4{font-size:14px;font-weight:800;color:var(--white);margin-bottom:8px;}
+.feat-card p{font-size:12.5px;color:var(--muted);line-height:1.7;}
+
+/* CURRICULUM */
+.curr-section{background:var(--bg2);position:relative;overflow:hidden;}
+.curr-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 100% 50%,rgba(232,160,32,.07) 0%,transparent 55%),radial-gradient(ellipse 40% 40% at 0% 20%,rgba(26,107,170,.1) 0%,transparent 55%);}
+.curr-inner{position:relative;z-index:1;}
+.tabs{display:flex;gap:6px;background:rgba(0,0,0,.35);padding:6px;border-radius:50px;width:fit-content;margin-bottom:36px;}
+.tab-btn{padding:10px 26px;border-radius:50px;border:none;background:transparent;color:var(--muted);font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .3s;}
+.tab-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--bg);}
+.tab-btn:not(.active):hover{color:var(--white);}
+.tab-pane{display:none;}
+.tab-pane.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;animation:fadeIn .4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.subj-card{background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:20px 18px;transition:all .3s;cursor:default;}
+.subj-card:hover{border-color:var(--border);background:rgba(232,160,32,.06);transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.3);}
+.subj-icon{font-size:26px;margin-bottom:10px;display:block;}
+.subj-name{font-weight:800;font-size:14px;color:var(--white);margin-bottom:5px;}
+.subj-desc{font-size:12px;color:var(--muted);line-height:1.55;}
+.books-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:36px;padding-top:32px;border-top:1px solid var(--border2);}
+
+/* CAREERS */
+.career-section{background:var(--bg3);position:relative;overflow:hidden;}
+.career-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 20% 50%,rgba(26,107,170,.16) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 80% 80%,rgba(232,160,32,.09) 0%,transparent 55%);}
+.career-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px;position:relative;z-index:1;}
+.career-card{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:32px 20px;text-align:center;transition:all .4s;cursor:default;position:relative;overflow:hidden;}
+.career-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--blue2));transform:scaleX(0);transition:transform .4s;transform-origin:center;}
+.career-card:hover{border-color:var(--border);transform:translateY(-7px);box-shadow:0 18px 50px rgba(0,0,0,.4);}
+.career-card:hover::after{transform:scaleX(1);}
+.c-icon{font-size:2.8em;display:block;margin-bottom:14px;}
+.c-title{font-weight:800;font-size:14.5px;color:var(--white);margin-bottom:12px;}
+.c-badge{display:inline-block;padding:4px 14px;background:rgba(232,160,32,.1);border:1px solid rgba(232,160,32,.28);border-radius:50px;font-size:11.5px;color:var(--accent2);font-weight:600;}
+
+/* FOOTER */
+footer{background:#040a14;border-top:1px solid var(--border);padding:32px 5%;text-align:center;color:var(--muted);font-size:13px;}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .hero-inner{grid-template-columns:1fr;gap:40px;padding-bottom:60px;}
+  .hero-stats{grid-template-columns:1fr 1fr;}
+  .nav-links{display:none;}
+  .net-features{grid-template-columns:1fr 1fr;}
+  .tabs{flex-wrap:wrap;border-radius:16px;}
+}
+@media(max-width:520px){
+  .net-features{grid-template-columns:1fr;}
+  .net-banner-img{height:220px;}
+  .net-banner-overlay h3{font-size:1.6em;}
+}
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+
+<!-- HEADER -->
+<header>
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">
+      <div class="logo-badge">💻</div>
+      <div class="logo-text">
+        <span class="school">ثانوية الكرخ المهنية</span>
+        <span class="dept">قسم الحاسبات</span>
+      </div>
+    </a>
+    <nav><ul class="nav-links">
+      <li><a href="#specs">التخصصات</a></li>
+      <li><a href="#network">الشبكات</a></li>
+      <li><a href="#curriculum">المناهج</a></li>
+      <li><a href="#careers">الوظائف</a></li>
+    </ul></nav>
+    <a href="../index.html" class="back-btn">← الرئيسية</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-stripe"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">🎓 ثانوية الكرخ المهنية · بغداد</div>
+      <h1>عصر المعلوماتية<br>يبدأ من <span>هنا</span></h1>
+      <p class="hero-sub">نُعدّك لتكون مهندس المستقبل الرقمي. من صيانة الأجهزة إلى تصميم الشبكات والبرمجة الاحترافية — كل ما تحتاجه في مكان واحد.</p>
+      <div class="hero-cta">
+        <a href="#specs" class="btn-primary">استكشف التخصصات</a>
+        <a href="#curriculum" class="btn-outline">📚 المناهج الدراسية</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card"><span class="stat-num" data-count="3">0</span><span class="stat-lbl">مراحل دراسية</span></div>
+      <div class="stat-card"><span class="stat-num" data-count="12">0</span><span class="stat-lbl">مادة تخصصية</span></div>
+      <div class="stat-card"><span class="stat-num" data-count="4">0</span><span class="stat-lbl">مسارات مهنية</span></div>
+      <div class="stat-card"><span class="stat-num">+20</span><span class="stat-lbl">سنة من التميز</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALIZATIONS -->
+<section class="specs-section" id="specs">
+
+  <!-- intro -->
+  <div class="specs-intro reveal">
+    <div class="section-tag">التخصصات</div>
+    <h2 class="section-title">مجالات الدراسة والتخصص</h2>
+    <p class="section-desc">أربعة محاور أساسية تغطي كامل عالم تقنية المعلومات، من الصيانة والبرمجة إلى الشبكات والتطبيقات.</p>
+  </div>
+
+  <!-- ━━━ PANEL 1 — Hardware | صورة يمين، نص يسار ━━━ -->
+  <div class="spec-panel img-right reveal">
+    <div class="spec-panel-text">
+      <div class="spec-panel-badge"><span>🔧</span> التخصص الأول</div>
+      <h2 class="spec-panel-title">صيانة الحاسوب<br><em>وتشخيص الأعطال</em></h2>
+      <p class="spec-panel-desc">
+        صيانة الحاسوب هي الأساس الذي يقوم عليه كل شيء رقمي. ستتعلم كيف تفكك الحاسوب وتعيد تجميعه قطعة قطعة، وتفهم وظيفة كل مكوّن بدقة — من شرائح الذاكرة إلى المعالجات متعددة النوى. ليست مجرد "إصلاح" بل فهم عميق لكيف يعمل الجهاز من الداخل.
+      </p>
+      <ul class="spec-details">
+        <li>تجميع أجهزة الحاسوب من الصفر واختيار المكونات المتوافقة لبناء أنظمة عالية الأداء</li>
+        <li>تشخيص الأعطال الكهربائية والإلكترونية باستخدام أدوات القياس والبرامج التشخيصية المتخصصة</li>
+        <li>إصلاح اللوحة الأم، وحدات الذاكرة RAM، محركات الأقراص SSD/HDD وبطاقات العرض</li>
+        <li>تحديث وترقية مكونات الأجهزة لتحسين الأداء وإطالة العمر الإنتاجي للحاسوب</li>
+        <li>التعامل مع بيئات العمل الفعلية في مراكز الخدمة وورش الصيانة المتخصصة</li>
+      </ul>
+      <div class="spec-tags">
+        <span class="stag">تجميع الأجهزة</span>
+        <span class="stag">تشخيص الأعطال</span>
+        <span class="stag">اللوحة الأم</span>
+        <span class="stag">الذاكرة RAM</span>
+        <span class="stag">المعالجات CPU</span>
+        <span class="stag">بطاقات العرض GPU</span>
+      </div>
+    </div>
+    <div class="spec-panel-img">
+      <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop" alt="صيانة الحاسوب">
+      <div class="spec-panel-num">01</div>
+    </div>
+  </div>
+
+  <div class="spec-divider"></div>
+
+  <!-- ━━━ PANEL 2 — Logic Design | صورة يسار، نص يمين ━━━ -->
+  <div class="spec-panel img-left reveal">
+    <div class="spec-panel-img">
+      <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1000&auto=format&fit=crop" alt="التصميم المنطقي">
+      <div class="spec-panel-num">02</div>
+    </div>
+    <div class="spec-panel-text">
+      <div class="spec-panel-badge"><span>🧩</span> التخصص الثاني</div>
+      <h2 class="spec-panel-title">التصميم المنطقي<br><em>والمعالجات الدقيقة</em></h2>
+      <p class="spec-panel-desc">
+        هل تساءلت يوماً كيف يفهم الحاسوب الأرقام والأوامر؟ هنا تجد الإجابة. ستدخل إلى عالم الدوائر المنطقية والبوابات الرقمية التي تشكّل العقل الحقيقي لكل جهاز إلكتروني. من أبسط بوابة AND إلى بنية المعالج الكاملة — ستفهم الحاسوب من أعمق مستوياته.
+      </p>
+      <ul class="spec-details">
+        <li>دراسة البوابات المنطقية الأساسية (AND, OR, NOT, XOR, NAND) وكيف تُبنى منها الدوائر المعقدة</li>
+        <li>تصميم وتبسيط الدوائر المنطقية التوافقية والتتابعية باستخدام خرائط كارنو ومعادلات بوليان</li>
+        <li>فهم بنية المعالج الدقيق: وحدة الحساب والمنطق ALU، سجلات البيانات، ناقل العناوين</li>
+        <li>برمجة المعالجات الدقيقة بلغة Assembly والتحكم المباشر في عتاد الحاسوب</li>
+        <li>ربط التصميم المنطقي بالمعالجات الحديثة وفهم تطور بنية الحواسيب عبر الأجيال</li>
+      </ul>
+      <div class="spec-tags">
+        <span class="stag">بوابات منطقية</span>
+        <span class="stag">جبر بولياني</span>
+        <span class="stag">خرائط كارنو</span>
+        <span class="stag">ALU</span>
+        <span class="stag">Assembly</span>
+        <span class="stag">المعالجات الدقيقة</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="spec-divider"></div>
+
+  <!-- ━━━ PANEL 3 — Networks | صورة يمين، نص يسار ━━━ -->
+  <div class="spec-panel img-right reveal">
+    <div class="spec-panel-text">
+      <div class="spec-panel-badge"><span>🌐</span> التخصص الثالث</div>
+      <h2 class="spec-panel-title">الشبكات<br><em>وربط الأجهزة</em></h2>
+      <p class="spec-panel-desc">
+        كل جهاز متصل بالإنترنت يمر عبر شبكة مُصمَّمة بعناية. ستتعلم كيف تُنشئ هذه الشبكات وتديرها، من توصيل جهازَين في غرفة واحدة إلى إدارة شبكة مؤسسة كاملة. ستفهم كيف تسافر البيانات عبر الكابلات والهواء لتصل من أي مكان إلى أي مكان في العالم.
+      </p>
+      <ul class="spec-details">
+        <li>التعرف على أنواع الشبكات: LAN وWAN وMAN وPAN واستخداماتها في بيئات مختلفة</li>
+        <li>ربط وتهيئة محطات العمل (Network Stations) وتوزيع عناوين IP وإعداد الـ Subnet</li>
+        <li>إعداد وبرمجة أجهزة الراوتر والسويتش Cisco وMikrotik وتوجيه حركة البيانات</li>
+        <li>فهم بروتوكولات الاتصال TCP/IP وHTTP وDNS وDHCP وDNS وكيف تعمل معاً</li>
+        <li>تصميم وتنفيذ شبكات لاسلكية WiFi آمنة وإدارة نقاط الوصول Access Points للمؤسسات</li>
+      </ul>
+      <div class="spec-tags">
+        <span class="stag">LAN / WAN</span>
+        <span class="stag">Network Stations</span>
+        <span class="stag">Cisco / Mikrotik</span>
+        <span class="stag">TCP/IP</span>
+        <span class="stag">DHCP / DNS</span>
+        <span class="stag">WiFi</span>
+      </div>
+    </div>
+    <div class="spec-panel-img">
+      <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=1000&auto=format&fit=crop" alt="الشبكات">
+      <div class="spec-panel-num">03</div>
+    </div>
+  </div>
+
+  <div class="spec-divider"></div>
+
+  <!-- ━━━ PANEL 4 — MS Office | صورة يسار، نص يمين ━━━ -->
+  <div class="spec-panel img-left reveal">
+    <div class="spec-panel-img">
+      <img src="https://images.unsplash.com/photo-1542744095-291d1f67b221?q=80&w=1000&auto=format&fit=crop" alt="تطبيقات الحاسوب">
+      <div class="spec-panel-num">04</div>
+    </div>
+    <div class="spec-panel-text">
+      <div class="spec-panel-badge"><span>📊</span> التخصص الرابع</div>
+      <h2 class="spec-panel-title">تطبيقات الحاسوب<br><em>Microsoft Office</em></h2>
+      <p class="spec-panel-desc">
+        حزمة Microsoft Office ليست مجرد برامج — إنها اللغة الرسمية لبيئة العمل الحديثة. من كتابة التقارير الاحترافية إلى بناء جداول بيانات تحلل آلاف الأرقام، ومن تصميم عروض تشد الانتباه إلى إدارة قواعد البيانات — هذا التخصص يجعلك الشخص الذي لا غنى عنه في أي مكتب أو مؤسسة.
+      </p>
+      <ul class="spec-details">
+        <li>إتقان Microsoft Word بمستوى متقدم: الأنماط، جداول المحتويات، دمج البريد، الماكرو، والتنسيق الاحترافي للوثائق الرسمية</li>
+        <li>Microsoft Excel المتقدم: الدوال المعقدة، Pivot Tables، الرسوم البيانية التحليلية، وتحليل البيانات الكبيرة</li>
+        <li>Microsoft PowerPoint: تصميم عروض احترافية بالأنيماشن والتصميم الجرافيكي والخطابة الرقمية المقنعة</li>
+        <li>Microsoft Access: إنشاء قواعد بيانات بسيطة وتقارير تلقائية وإدارة سجلات المؤسسة</li>
+        <li>Microsoft Outlook وأدوات التعاون: إدارة البريد الإلكتروني، التقاويم، وعمل الفرق عبر Microsoft Teams</li>
+      </ul>
+      <div class="spec-tags">
+        <span class="stag">Word</span>
+        <span class="stag">Excel</span>
+        <span class="stag">PowerPoint</span>
+        <span class="stag">Access</span>
+        <span class="stag">Outlook</span>
+        <span class="stag">Teams</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- NETWORK -->
+<section class="net-section" id="network">
+  <div class="net-banner reveal">
+    <div class="net-banner-header">
+      <div class="section-tag" style="justify-content:center;">الشبكات</div>
+      <h2 class="section-title" style="text-align:center;">فهم متقدم لعالم الشبكات</h2>
+      <p class="section-desc" style="text-align:center;margin:0 auto 40px;">لن تكتفي بتوصيل الأسلاك فحسب — ستفهم البنية التحتية الكاملة للإنترنت وتتحكم بها.</p>
+    </div>
+    <div class="net-banner-img">
+      <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=1400&auto=format&fit=crop" alt="شبكات الحاسوب">
+      <div class="net-banner-overlay">
+        <h3>من <span>اللاسلكي</span> إلى<br>الشبكات المؤسسية الكبرى</h3>
+      </div>
+    </div>
+  </div>
+  <div class="net-features reveal">
+    <div class="feat-card">
+      <div class="feat-card-icon">🏢</div>
+      <h4>شبكات LAN &amp; WAN</h4>
+      <p>تصميم وإدارة شبكات المؤسسات والشركات على المستوى الاحترافي.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-card-icon">🔀</div>
+      <h4>Cisco &amp; Mikrotik</h4>
+      <p>إعداد وبرمجة الراوترات والسويتشات المتقدمة للأنظمة الكبيرة.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-card-icon">🔐</div>
+      <h4>بروتوكولات TCP/IP</h4>
+      <p>فهم بروتوكولات الاتصال وتأمين البيانات ضد الاختراق.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-card-icon">📶</div>
+      <h4>الربط اللاسلكي</h4>
+      <p>توسيع نطاق الإشارة للمجمعات السكنية والمؤسسات الكبرى.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section class="curr-section" id="curriculum">
+  <div class="section-wrap curr-inner">
+    <div class="reveal">
+      <div class="section-tag">المناهج</div>
+      <h2 class="section-title">المناهج الدراسية الحديثة</h2>
+      <p class="section-desc">كتب رسمية محدثة وفق مناهج وزارة التربية العراقية لجميع المراحل المهنية.</p>
+    </div>
+    <div class="reveal">
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(this,'y1')">الأول مهني</button>
+        <button class="tab-btn" onclick="switchTab(this,'y2')">الثاني مهني</button>
+        <button class="tab-btn" onclick="switchTab(this,'y3')">الثالث مهني</button>
+      </div>
+      <div class="tab-pane active" id="y1">
+        <div class="subj-card"><span class="subj-icon">🖥️</span><div class="subj-name">المبادئ الأساسية للحاسوب</div><div class="subj-desc">بنية الحاسوب وأنظمة التشغيل</div></div>
+        <div class="subj-card"><span class="subj-icon">⚡</span><div class="subj-name">الكهرباء والالكترونيك</div><div class="subj-desc">الدوائر الكهربائية والمكونات الأساسية</div></div>
+        <div class="subj-card"><span class="subj-icon">🔌</span><div class="subj-name">مبادئ الاتصال والشبكات</div><div class="subj-desc">مقدمة في الشبكات وبروتوكولاتها</div></div>
+        <div class="subj-card"><span class="subj-icon">🛠️</span><div class="subj-name">تجميع الحاسوب</div><div class="subj-desc">بناء وتجميع الأجهزة عملياً</div></div>
+        <div class="subj-card"><span class="subj-icon">📊</span><div class="subj-name">تطبيقات الحاسوب</div><div class="subj-desc">Word, Excel, PowerPoint متقدم</div></div>
+        <div class="subj-card"><span class="subj-icon">📐</span><div class="subj-name">الرياضيات</div><div class="subj-desc">رياضيات موجهة للحوسبة والبرمجة</div></div>
+        <div class="subj-card"><span class="subj-icon">📖</span><div class="subj-name">اللغة العربية</div><div class="subj-desc">مهارات الكتابة والتعبير التقني</div></div>
+        <div class="subj-card"><span class="subj-icon">🌍</span><div class="subj-name">اللغة الانكليزية</div><div class="subj-desc">مصطلحات تقنية واتصال احترافي</div></div>
+        <div class="subj-card"><span class="subj-icon">🔬</span><div class="subj-name">الطبيعيات</div><div class="subj-desc">الفيزياء المرتبطة بالإلكترونيات</div></div>
+      </div>
+      <div class="tab-pane" id="y2">
+        <div class="subj-card"><span class="subj-icon">🧩</span><div class="subj-name">التصميم المنطقي</div><div class="subj-desc">دوائر منطقية وبوابات رقمية</div></div>
+        <div class="subj-card"><span class="subj-icon">🌐</span><div class="subj-name">شبكات الحاسوب</div><div class="subj-desc">TCP/IP، بروتوكولات، بنية الشبكات</div></div>
+        <div class="subj-card"><span class="subj-icon">🗄️</span><div class="subj-name">صيانة الحاسوب</div><div class="subj-desc">تشخيص وإصلاح الأعطال المتقدمة</div></div>
+        <div class="subj-card"><span class="subj-icon">💻</span><div class="subj-name">تطبيقات الحاسوب</div><div class="subj-desc">برامج متقدمة وتطبيقات تخصصية</div></div>
+        <div class="subj-card"><span class="subj-icon">📐</span><div class="subj-name">الرياضيات</div><div class="subj-desc">جبر بولياني وأنظمة عددية</div></div>
+        <div class="subj-card"><span class="subj-icon">🔬</span><div class="subj-name">الطبيعيات</div><div class="subj-desc">الكهرومغناطيسية والإلكترونيات</div></div>
+        <div class="subj-card"><span class="subj-icon">📖</span><div class="subj-name">اللغة العربية</div><div class="subj-desc">الكتابة الوثائقية التقنية</div></div>
+        <div class="subj-card"><span class="subj-icon">🌍</span><div class="subj-name">اللغة الانكليزية</div><div class="subj-desc">قراءة التوثيقات التقنية الانكليزية</div></div>
+      </div>
+      <div class="tab-pane" id="y3">
+        <div class="subj-card"><span class="subj-icon">⚙️</span><div class="subj-name">المعالجات الدقيقة</div><div class="subj-desc">بنية المعالج، برمجة Assembly</div></div>
+        <div class="subj-card"><span class="subj-icon">🔧</span><div class="subj-name">صيانة الحاسوب</div><div class="subj-desc">إصلاح اللوحات الأم والمعالجات</div></div>
+        <div class="subj-card"><span class="subj-icon">📡</span><div class="subj-name">مختبر وشبكات الانترنت</div><div class="subj-desc">Cisco CCNA, Mikrotik الاحترافي</div></div>
+        <div class="subj-card"><span class="subj-icon">📐</span><div class="subj-name">الرياضيات</div><div class="subj-desc">رياضيات متقدمة للحوسبة</div></div>
+        <div class="subj-card"><span class="subj-icon">🔬</span><div class="subj-name">الطبيعيات</div><div class="subj-desc">الإلكترونيات الرقمية المتقدمة</div></div>
+        <div class="subj-card"><span class="subj-icon">📖</span><div class="subj-name">اللغة العربية</div><div class="subj-desc">الكتابة التقنية الاحترافية</div></div>
+        <div class="subj-card"><span class="subj-icon">🌍</span><div class="subj-name">اللغة الانكليزية</div><div class="subj-desc">التواصل الدولي في سوق العمل</div></div>
+      </div>
+      <div class="books-row">
+        <a href="#" class="btn-primary" style="text-align:center;">📥 كتب الأول مهني</a>
+        <a href="#" class="btn-primary" style="text-align:center;">📥 كتب الثاني مهني</a>
+        <a href="#" class="btn-primary" style="text-align:center;">📥 كتب الثالث مهني</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREERS -->
+<section class="career-section" id="careers">
+  <div class="section-wrap reveal">
+    <div class="section-tag">مستقبلك</div>
+    <h2 class="section-title">ماذا بعد التخرج؟</h2>
+    <p class="section-desc">خريج قسم الحاسبات لا يحصل على شهادة فقط — بل يحصل على مهنة حقيقية وأولوية في الكليات التقنية.</p>
+    <div class="career-grid">
+      <div class="career-card"><span class="c-icon">🌐</span><div class="c-title">فني شبكات</div><span class="c-badge">Network Engineer</span></div>
+      <div class="career-card"><span class="c-icon">🗄️</span><div class="c-title">مدير قواعد بيانات</div><span class="c-badge">DBA</span></div>
+      <div class="career-card"><span class="c-icon">🔧</span><div class="c-title">خبير صيانة</div><span class="c-badge">Hardware Technician</span></div>
+      <div class="career-card"><span class="c-icon">👨‍💻</span><div class="c-title">مطور برمجيات</div><span class="c-badge">Software Developer</span></div>
+      <div class="career-card"><span class="c-icon">🛡️</span><div class="c-title">محلل أمن سيبراني</div><span class="c-badge">Security Analyst</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer><p>© 2025 ثانوية الكرخ المهنية — قسم الحاسبات. جميع الحقوق محفوظة.</p></footer>
+
+<script>
+/* Particles */
+const cv=document.getElementById('bg-canvas'),cx=cv.getContext('2d');
+function rsz(){cv.width=innerWidth;cv.height=innerHeight;}rsz();window.addEventListener('resize',rsz);
+const P=Array.from({length:60},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,r:Math.random()*1.6+.4,a:Math.random()*.6+.2}));
+(function loop(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>cv.width)p.vx*=-1;if(p.y<0||p.y>cv.height)p.vy*=-1;cx.beginPath();cx.arc(p.x,p.y,p.r,0,Math.PI*2);cx.fillStyle=`rgba(232,160,32,${p.a*.4})`;cx.fill();});
+  for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){const d=Math.hypot(P[i].x-P[j].x,P[i].y-P[j].y);if(d<130){cx.beginPath();cx.moveTo(P[i].x,P[i].y);cx.lineTo(P[j].x,P[j].y);cx.strokeStyle=`rgba(232,160,32,${.13*(1-d/130)})`;cx.lineWidth=.5;cx.stroke();}}
+  requestAnimationFrame(loop);
+})();
+
+/* Reveal */
+const rObs=new IntersectionObserver(en=>{en.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*60);});},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>rObs.observe(el));
+
+/* Counter */
+function animC(el,t){let c=0;const s=Math.ceil(t/40),iv=setInterval(()=>{c=Math.min(c+s,t);el.textContent=c;if(c>=t)clearInterval(iv);},30);}
+const cObs=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('[data-count]').forEach(el=>animC(el,+el.dataset.count));cObs.disconnect();}});},{threshold:.5});
+const fs=document.querySelector('.stat-card');if(fs)cObs.observe(fs);
+
+/* Tabs */
+function switchTab(btn,id){document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById(id).classList.add('active');}
+</script>
+</body>
+</html>

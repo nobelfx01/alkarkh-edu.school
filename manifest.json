@@ -1,0 +1,35 @@
+{
+  "name": "ثانوية الكرخ المهنية",
+  "short_name": "الكرخ المهنية",
+  "description": "ثانوية الكرخ المهنية — تعليم مهني وتقني حديث في بغداد، العراق",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0a1628",
+  "theme_color": "#e8a020",
+  "lang": "ar",
+  "dir": "rtl",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education"],
+  "screenshots": [
+    {
+      "src": "Images/1.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "form_factor": "wide"
+    }
+  ]
+}

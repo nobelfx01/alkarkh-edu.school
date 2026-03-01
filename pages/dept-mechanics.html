@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قسم الميكانيك — ثانوية الكرخ المهنية</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #080a0d;
+  --bg2:     #0b0e12;
+  --bg3:     #0e1218;
+  --card:    #101418;
+  --accent:  #6e8ca8;
+  --accent2: #9ab5cc;
+  --blue:    #2a4a6e;
+  --blue2:   #3a6490;
+  --white:   #ffffff;
+  --text:    rgba(255,255,255,0.88);
+  --muted:   rgba(255,255,255,0.48);
+  --border:  rgba(110,140,168,0.28);
+  --border2: rgba(255,255,255,0.07);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.45;}
+
+header{position:sticky;top:0;z-index:200;background:rgba(8,10,13,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1160px;margin:0 auto;padding:0 5%;height:68px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-badge{width:40px;height:40px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 16px rgba(110,140,168,.45);}
+.logo-text .school{font-size:11px;color:var(--muted);display:block;}
+.logo-text .dept{font-size:14px;font-weight:800;color:var(--accent2);display:block;}
+.nav-links{display:flex;gap:4px;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:600;padding:7px 14px;border-radius:8px;transition:all .2s;}
+.nav-links a:hover{color:var(--accent);background:rgba(110,140,168,.08);}
+.back-btn{display:flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:13px;font-weight:700;padding:8px 18px;border:1px solid var(--border);border-radius:50px;transition:all .3s;}
+.back-btn:hover{background:rgba(110,140,168,.1);border-color:var(--accent);}
+
+/* HERO */
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;padding-top:68px;background:var(--bg);}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 80% 30%,rgba(60,100,150,.22) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 10% 70%,rgba(110,140,168,.12) 0%,transparent 55%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(110,140,168,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(110,140,168,.04) 1px,transparent 1px);background-size:52px 52px;}
+.hero-stripe{position:absolute;width:3px;height:70%;background:linear-gradient(180deg,transparent,var(--accent),transparent);left:calc(50% + 80px);top:15%;opacity:.15;animation:stripeGlow 4s ease-in-out infinite;}
+@keyframes stripeGlow{0%,100%{opacity:.08;}50%{opacity:.28;}}
+.hero-inner{position:relative;z-index:2;max-width:1160px;margin:0 auto;padding:80px 5% 120px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(60,100,150,.16);border:1px solid rgba(60,100,150,.4);color:#9ab5cc;padding:6px 16px;border-radius:50px;font-size:12px;font-weight:700;margin-bottom:22px;letter-spacing:.5px;animation:fadeUp .8s ease both;}
+.hero h1{font-family:'Tajawal',sans-serif;font-size:clamp(2.4em,5vw,4.2em);font-weight:900;color:var(--white);line-height:1.15;margin-bottom:20px;animation:fadeUp .8s ease .15s both;}
+.hero h1 span{color:var(--accent2);}
+.hero-sub{font-size:15px;color:var(--muted);line-height:1.85;margin-bottom:38px;animation:fadeUp .8s ease .3s both;}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp .8s ease .45s both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+
+.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;animation:fadeUp .8s ease .6s both;}
+.stat-card{background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:18px;padding:26px 20px;text-align:center;backdrop-filter:blur(10px);transition:all .3s;position:relative;overflow:hidden;}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .3s;}
+.stat-card:hover{border-color:var(--border);transform:translateY(-4px);}
+.stat-card:hover::before{opacity:1;}
+.stat-num{font-family:'Tajawal',sans-serif;font-size:2.6em;font-weight:900;color:var(--accent2);line-height:1;margin-bottom:6px;display:block;}
+.stat-lbl{font-size:12px;color:var(--muted);}
+
+.btn-primary{display:inline-block;padding:13px 32px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--white);border-radius:50px;font-weight:800;font-size:14px;text-decoration:none;border:none;cursor:pointer;font-family:'Cairo',sans-serif;transition:all .3s;box-shadow:0 6px 22px rgba(110,140,168,.35);}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(110,140,168,.55);}
+.btn-outline{display:inline-block;padding:13px 32px;border:1.5px solid rgba(255,255,255,.22);color:var(--white);border-radius:50px;font-weight:700;font-size:14px;text-decoration:none;transition:all .3s;}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent2);background:rgba(110,140,168,.06);}
+
+.section-wrap{max-width:1160px;margin:0 auto;padding:100px 5%;}
+.section-tag{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;color:var(--accent2);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+.section-tag::before{content:'';width:26px;height:2px;background:var(--accent2);border-radius:2px;}
+.section-title{font-family:'Tajawal',sans-serif;font-size:clamp(1.8em,3.5vw,2.6em);font-weight:900;color:var(--white);margin-bottom:12px;}
+.section-desc{font-size:15px;color:var(--muted);line-height:1.8;max-width:600px;margin-bottom:44px;}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* SPECS PANELS */
+.specs-section{background:var(--bg2);position:relative;overflow:hidden;}
+.specs-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 90% 50%,rgba(60,100,150,.08) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 10% 80%,rgba(110,140,168,.05) 0%,transparent 55%);}
+.specs-intro{max-width:1160px;margin:0 auto;padding:100px 5% 60px;position:relative;z-index:1;}
+
+.spec-panel{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;min-height:540px;overflow:hidden;border-top:1px solid var(--border2);}
+.spec-panel-img{position:relative;overflow:hidden;min-height:480px;}
+.spec-panel-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.45) saturate(.9) hue-rotate(190deg);transition:transform 1s cubic-bezier(.25,.46,.45,.94);}
+.spec-panel:hover .spec-panel-img img{transform:scale(1.07);}
+
+.spec-panel.img-right .spec-panel-img::after{content:'';position:absolute;inset:0;background:linear-gradient(270deg,transparent 40%,var(--bg2) 100%);}
+.spec-panel.img-left .spec-panel-img::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 40%,var(--bg2) 100%);}
+.spec-panel.img-right{grid-template-columns:1fr 1fr;}
+.spec-panel.img-right .spec-panel-text{order:1;}
+.spec-panel.img-right .spec-panel-img{order:2;}
+.spec-panel.img-left{grid-template-columns:1fr 1fr;}
+.spec-panel.img-left .spec-panel-img{order:1;}
+.spec-panel.img-left .spec-panel-text{order:2;}
+
+.spec-panel-num{position:absolute;top:24px;left:28px;font-family:'Tajawal',sans-serif;font-size:5em;font-weight:900;color:rgba(110,140,168,.18);line-height:1;pointer-events:none;z-index:2;}
+.spec-panel-text{display:flex;flex-direction:column;justify-content:center;padding:60px 56px;background:var(--bg2);}
+.spec-panel-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(110,140,168,.1);border:1px solid var(--border);color:var(--accent2);padding:7px 18px;border-radius:50px;font-size:13px;font-weight:700;margin-bottom:28px;width:fit-content;}
+.spec-panel-badge span{font-size:18px;}
+.spec-panel-title{font-family:'Tajawal',sans-serif;font-size:clamp(1.7em,3vw,2.6em);font-weight:900;color:var(--white);line-height:1.2;margin-bottom:20px;}
+.spec-panel-title em{color:var(--accent2);font-style:normal;}
+.spec-panel-desc{font-size:15px;color:var(--muted);line-height:1.9;margin-bottom:32px;}
+.spec-details{list-style:none;margin-bottom:32px;display:flex;flex-direction:column;gap:12px;}
+.spec-details li{display:flex;align-items:flex-start;gap:12px;font-size:14px;color:rgba(255,255,255,.75);line-height:1.6;}
+.spec-details li::before{content:'';flex-shrink:0;width:7px;height:7px;background:var(--accent2);border-radius:50%;margin-top:7px;box-shadow:0 0 8px rgba(110,140,168,.6);}
+.spec-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.stag{padding:6px 16px;background:rgba(110,140,168,.08);border:1px solid rgba(110,140,168,.25);border-radius:50px;font-size:12px;color:var(--accent2);font-weight:600;transition:all .25s;}
+.stag:hover{background:rgba(110,140,168,.18);}
+.spec-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);}
+
+/* WORKSHOP SECTION */
+.workshop-section{background:var(--bg3);position:relative;overflow:hidden;}
+.workshop-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(60,100,150,.15) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 90% 100%,rgba(110,140,168,.08) 0%,transparent 55%);}
+.workshop-banner{position:relative;z-index:1;max-width:1160px;margin:0 auto;padding:100px 5% 0;}
+.workshop-banner-header{text-align:center;margin-bottom:50px;}
+.workshop-banner-img{border-radius:22px;overflow:hidden;border:1px solid var(--border);box-shadow:0 30px 80px rgba(0,0,0,.5);position:relative;height:380px;}
+.workshop-banner-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.4) saturate(.8) hue-rotate(180deg);transition:transform .8s;}
+.workshop-banner-img:hover img{transform:scale(1.04);}
+.workshop-banner-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:40px;background:linear-gradient(135deg,rgba(8,10,13,.7) 0%,rgba(60,100,150,.2) 100%);}
+.workshop-banner-overlay h3{font-family:'Tajawal',sans-serif;font-size:2.4em;font-weight:900;color:var(--white);text-align:center;text-shadow:0 4px 20px rgba(0,0,0,.5);}
+.workshop-banner-overlay h3 span{color:var(--accent2);}
+
+.workshop-features{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:0 5% 100px;position:relative;z-index:1;max-width:1160px;margin:32px auto 0;}
+.feat-card{background:var(--card);border:1px solid var(--border2);border-radius:18px;padding:28px 22px;transition:all .3s;position:relative;overflow:hidden;}
+.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0;transition:opacity .3s;}
+.feat-card:hover{border-color:var(--border);transform:translateY(-6px);box-shadow:0 18px 50px rgba(0,0,0,.35);}
+.feat-card:hover::before{opacity:1;}
+.feat-card-icon{width:44px;height:44px;background:rgba(110,140,168,.12);border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;}
+.feat-card h4{font-size:14px;font-weight:800;color:var(--white);margin-bottom:8px;}
+.feat-card p{font-size:12.5px;color:var(--muted);line-height:1.7;}
+
+/* CURRICULUM */
+.curr-section{background:var(--bg2);position:relative;overflow:hidden;}
+.curr-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 100% 50%,rgba(110,140,168,.06) 0%,transparent 55%),radial-gradient(ellipse 40% 40% at 0% 20%,rgba(60,100,150,.08) 0%,transparent 55%);}
+.curr-inner{position:relative;z-index:1;}
+.tabs{display:flex;gap:6px;background:rgba(0,0,0,.35);padding:6px;border-radius:50px;width:fit-content;margin-bottom:36px;}
+.tab-btn{padding:10px 26px;border-radius:50px;border:none;background:transparent;color:var(--muted);font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .3s;}
+.tab-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--white);}
+.tab-btn:not(.active):hover{color:var(--white);}
+.tab-pane{display:none;}
+.tab-pane.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;animation:fadeIn .4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.subj-card{background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:20px 18px;transition:all .3s;cursor:default;}
+.subj-card:hover{border-color:var(--border);background:rgba(110,140,168,.05);transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.3);}
+.subj-icon{font-size:26px;margin-bottom:10px;display:block;}
+.subj-name{font-weight:800;font-size:14px;color:var(--white);margin-bottom:5px;}
+.subj-desc{font-size:12px;color:var(--muted);line-height:1.55;}
+.books-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:36px;padding-top:32px;border-top:1px solid var(--border2);}
+
+/* CAREERS */
+.career-section{background:var(--bg3);position:relative;overflow:hidden;}
+.career-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 20% 50%,rgba(60,100,150,.14) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 80% 80%,rgba(110,140,168,.08) 0%,transparent 55%);}
+.career-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px;position:relative;z-index:1;}
+.career-card{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:32px 20px;text-align:center;transition:all .4s;cursor:default;position:relative;overflow:hidden;}
+.career-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transition:transform .4s;transform-origin:center;}
+.career-card:hover{border-color:var(--border);transform:translateY(-7px);box-shadow:0 18px 50px rgba(0,0,0,.4);}
+.career-card:hover::after{transform:scaleX(1);}
+.c-icon{font-size:2.8em;display:block;margin-bottom:14px;}
+.c-title{font-weight:800;font-size:14.5px;color:var(--white);margin-bottom:12px;}
+.c-badge{display:inline-block;padding:4px 14px;background:rgba(110,140,168,.1);border:1px solid rgba(110,140,168,.28);border-radius:50px;font-size:11.5px;color:var(--accent2);font-weight:600;}
+
+footer{background:#020304;border-top:1px solid var(--border);padding:32px 5%;text-align:center;color:var(--muted);font-size:13px;}
+
+@media(max-width:860px){
+  .hero-inner{grid-template-columns:1fr;gap:40px;padding-bottom:60px;}
+  .hero-stats{grid-template-columns:1fr 1fr;}
+  .nav-links{display:none;}
+  .workshop-features{grid-template-columns:1fr 1fr;}
+  .tabs{flex-wrap:wrap;border-radius:16px;}
+  .spec-panel{grid-template-columns:1fr !important;}
+  .spec-panel .spec-panel-img,.spec-panel .spec-panel-text{order:unset !important;}
+  .spec-panel.img-right .spec-panel-img,.spec-panel.img-left .spec-panel-img{order:1 !important;}
+  .spec-panel.img-right .spec-panel-text,.spec-panel.img-left .spec-panel-text{order:2 !important;}
+  .spec-panel-img{min-height:260px;}
+  .spec-panel.img-right .spec-panel-img::after,.spec-panel.img-left .spec-panel-img::after{background:linear-gradient(180deg,transparent 40%,var(--bg2) 100%);}
+  .spec-panel-text{padding:36px 24px;}
+}
+@media(max-width:520px){
+  .workshop-features{grid-template-columns:1fr;}
+  .workshop-banner-img{height:220px;}
+  .workshop-banner-overlay h3{font-size:1.6em;}
+}
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+
+<!-- HEADER -->
+<header>
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">
+      <div class="logo-badge">⚙️</div>
+      <div class="logo-text">
+        <span class="school">ثانوية الكرخ المهنية</span>
+        <span class="dept">قسم الميكانيك</span>
+      </div>
+    </a>
+    <nav><ul class="nav-links">
+      <li><a href="#specs">التخصصات</a></li>
+      <li><a href="#workshop">الورشة</a></li>
+      <li><a href="#curriculum">المناهج</a></li>
+      <li><a href="#careers">الوظائف</a></li>
+    </ul></nav>
+    <a href="../index.html" class="back-btn">← الرئيسية</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-stripe"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">🎓 ثانوية الكرخ المهنية · بغداد</div>
+      <h1>عالم الميكانيك<br>يبدأ من <span>هنا</span></h1>
+      <p class="hero-sub">نُعدّك لتكون خبير الميكانيك في المستقبل. من صيانة الآلات الثقيلة وتشخيص الأعطال إلى أنظمة الضغط الهيدروليكي والتحكم الميكانيكي الدقيق — كل ما تحتاجه في مكان واحد.</p>
+      <div class="hero-cta">
+        <a href="#specs" class="btn-primary">استكشف التخصصات</a>
+        <a href="#curriculum" class="btn-outline">📚 المناهج الدراسية</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card"><span class="stat-num" data-count="3">0</span><span class="stat-lbl">مراحل دراسية</span></div>
+      <div class="stat-card"><span class="stat-num" data-count="7">0</span><span class="stat-lbl">مادة تخصصية</span></div>
+      <div class="stat-card"><span class="stat-num" data-count="4">0</span><span class="stat-lbl">مسارات مهنية</span></div>
+      <div class="stat-card"><span class="stat-num">+20</span><span class="stat-lbl">سنة من التميز</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALIZATIONS -->
+<section class="specs-section" id="specs">
+  <div class="specs-intro reveal">
+    <div class="section-tag">التخصصات</div>
+    <h2 class="section-title">مجالات الدراسة والتخصص</h2>
+    <p class="section-desc">أربعة محاور أساسية تغطي كامل عالم الميكانيك الصناعي، من الآلات والمحركات إلى الهيدروليك والتشغيل الدقيق.</p>
+  </div>
+
+  <!-- PANEL 1 -->
+  <div class="spec-panel img-right reveal">
+    <div class="spec-panel-text">
+      <div class="spec-panel-badge"><span>🔩</span> التخصص الأول</div>
+      <h2 class="spec-panel-title">الآلات الصناعية<br><em>وتشخيص الأعطال</em></h2>
+      <p class="spec-panel-desc">
+        الآلة الصناعية هي العمود الفقري لأي منشأة إنتاجية. ستتعلم كيف تعمل الآلات الميكانيكية الثقيلة وكيف تفحص مكوناتها وتعيد تأهيلها بدقة احترافية — من المحامل وعمود الكامة إلى منظومات التشغيل الكاملة.
+      </p>
+      <ul class="spec-details">
+        <li>فهم مبادئ عمل المحركات الحرارية والميكانيكية وأنظمة نقل القوة في الآلات الصناعية</li>
+        <li>فك وتركيب الأجهزة الميكانيكية مع قياس التلاؤم والتفاوتات المسموح بها بين المكونات</li>
+        <li>تشخيص أعطال الآلات باستخدام أدوات الفحص والقياس الدقيق</li>
+        <li>صيانة أنظمة التشحيم والتبريد والتهوية في المحركات والمضخات الصناعية</li>
+        <li>تشغيل وضبط الآلات بعد الصيانة والتحقق من مستوى الأداء والكفاءة</li>
+      </ul>
+      <div class="spec-tags">
+        <span class="stag">الآلات الثقيلة</span>
+        <span class="stag">تشخيص الأعطال</span>
+        <span class="stag">قياس التلاؤم</span>
+        <span class="stag">أنظمة التبريد</span>
+        <span class="stag">التشحيم</span>
+        <span class="stag">ضبط الأداء</span>
+      </div>
+    </div>
+    <div class="spec-panel-img">
+      <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=1000&auto=format&fit=crop" alt="الآلات الصناعية">
+      <div class="spec-panel-num">01</div>
+    </div>
+  </div>
+
+  <div class="spec-divider"></div>
+
+  <!-- PANEL 2 -->
+  <div class="spec-panel img-left reveal">
+    <div class="spec-panel-img">
+      <img src="https://images.unsplash.com/photo-1565043666747-69f6646db940?q=80&w=1000&auto=format&fit=crop" alt="نقل الحركة الميكانيكية">
+      <div class="spec-panel-num">02</div>
+    </div>
+    <div class="spec-panel-text">
+      <div class="spec-panel-badge"><span>⚙️</span> التخصص الثاني</div>
+      <h2 class="spec-panel-title">نقل الحركة<br><em>والتروس والمحاور</em></h2>
+      <p class="spec-panel-desc">
+        كيف تتحول القوة الميكانيكية إلى حركة منتجة؟ ستدرس منظومة نقل الحركة الكاملة من التروس المختلفة والقوابض مروراً بالعتلات وأعمدة الدفع وصولاً إلى منظومات التعشيق والتزامن الصناعية.
+      </p>
+      <ul class="spec-details">
+        <li>دراسة أنواع التروس والسلاسل والأحزمة الناقلة وكيفية حساب نسب نقل العزوم</li>
+        <li>صيانة صناديق التروس الصناعية وأسباب الأعطال الشائعة وكيفية إصلاحها</li>
+        <li>فهم عمل منظومات القابض والفصل والوصل في الآلات الثقيلة</li>
+        <li>دراسة أعمدة الدفع والتفاضل وتوزيع العزوم في الأنظمة الميكانيكية المعقدة</li>
+        <li>صيانة المحامل والبلي والمحاور وتشخيص أعطال منظومة النقل الكاملة</li>
+      </ul>
+      <div class="spec-tags">
+        <span class="stag">التروس</span>
+        <span class="stag">الأحزمة الناقلة</span>
+        <span class="stag">القابض</span>
+        <span class="stag">المحامل</span>
+        <span class="stag">أعمدة الدفع</span>
+        <span class="stag">التعشيق</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="spec-divider"></div>
+
+  <!-- PANEL 3 -->
+  <div class="spec-panel img-right reveal">
+    <div class="spec-panel-text">
+      <div class="spec-panel-badge"><span>💧</span> التخصص الثالث</div>
+      <h2 class="spec-panel-title">الهيدروليك<br><em>والضغط السائل</em></h2>
+      <p class="spec-panel-desc">
+        أنظمة الهيدروليك هي القلب الخفي لأغلب الآلات الثقيلة والصناعية. ستتعلم مبادئ الضغط السائل وكيف تقرأ مخططات الدوائر الهيدروليكية وتشخص أعطالها وتصونها بأعلى معايير السلامة.
+      </p>
+      <ul class="spec-details">
+        <li>فهم قوانين الضغط السائل ومبدأ باسكال وتطبيقاته في الأنظمة الصناعية</li>
+        <li>قراءة وتفسير مخططات الدوائر الهيدروليكية وتتبع خطوط الضغط</li>
+        <li>صيانة المضخات الهيدروليكية والمحركات والصمامات ووحدات التحكم</li>
+        <li>تشخيص وإصلاح أعطال تسرب السوائل وانخفاض الضغط وعطل الصمامات</li>
+        <li>التعامل مع أنظمة الهيدروليك في الرافعات والحفارات والمكابس الصناعية</li>
+      </ul>
+      <div class="spec-tags">
+        <span class="stag">الهيدروليك</span>
+        <span class="stag">الضغط السائل</span>
+        <span class="stag">المضخات</span>
+        <span class="stag">الصمامات</span>
+        <span class="stag">مخططات الدوائر</span>
+        <span class="stag">المكابس</span>
+      </div>
+    </div>
+    <div class="spec-panel-img">
+      <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?q=80&w=1000&auto=format&fit=crop" alt="أنظمة الهيدروليك">
+      <div class="spec-panel-num">03</div>
+    </div>
+  </div>
+
+  <div class="spec-divider"></div>
+
+  <!-- PANEL 4 -->
+  <div class="spec-panel img-left reveal">
+    <div class="spec-panel-img">
+      <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1000&auto=format&fit=crop" alt="الهيكل والإطارات">
+      <div class="spec-panel-num">04</div>
+    </div>
+    <div class="spec-panel-text">
+      <div class="spec-panel-badge"><span>🏗️</span> التخصص الرابع</div>
+      <h2 class="spec-panel-title">الهياكل المعدنية<br><em>واللحام والتشكيل</em></h2>
+      <p class="spec-panel-desc">
+        اللحام والتشكيل المعدني هما الأساس الذي تُبنى عليه الآلات والمنشآت الصناعية. ستتعلم تقنيات اللحام الكهربائي والغازي وأسالب تشكيل المعادن وإصلاح الهياكل الصناعية المعقدة.
+      </p>
+      <ul class="spec-details">
+        <li>إتقان تقنيات اللحام الكهربائي MIG/TIG/MMA وضبط معاملات الجودة والمتانة</li>
+        <li>تشكيل المعادن وفق المواصفات: ثني، قطع، حفر، وبرد المعادن بالآلات الصناعية</li>
+        <li>قراءة رسومات الهياكل الفنية وتنفيذها بدقة عالية وفق المقاسات المطلوبة</li>
+        <li>إصلاح وتعزيز الهياكل المعدنية للآلات والمركبات والمنشآت الصناعية</li>
+        <li>التعامل مع أنواع المعادن المختلفة وفهم خصائصها الميكانيكية والحرارية</li>
+      </ul>
+      <div class="spec-tags">
+        <span class="stag">اللحام الكهربائي</span>
+        <span class="stag">MIG/TIG</span>
+        <span class="stag">تشكيل المعادن</span>
+        <span class="stag">الهياكل</span>
+        <span class="stag">المواصفات</span>
+        <span class="stag">الجودة</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKSHOP -->
+<section class="workshop-section" id="workshop">
+  <div class="workshop-banner reveal">
+    <div class="workshop-banner-header">
+      <div class="section-tag" style="justify-content:center;">الورشة</div>
+      <h2 class="section-title" style="text-align:center;">تدريب عملي بمعدات حديثة</h2>
+      <p class="section-desc" style="text-align:center;margin:0 auto 40px;">لن تكتفي بالنظرية فحسب — ستضع يدك على الآلة وتتدرب بأدوات احترافية في ورشة ميكانيكية متكاملة.</p>
+    </div>
+    <div class="workshop-banner-img">
+      <img src="https://images.unsplash.com/photo-1590650153855-d9e808231d41?q=80&w=1400&auto=format&fit=crop" alt="ورشة الميكانيك">
+      <div class="workshop-banner-overlay">
+        <h3>من <span>التدريب العملي</span><br>إلى الاحتراف الكامل</h3>
+      </div>
+    </div>
+  </div>
+  <div class="workshop-features reveal">
+    <div class="feat-card">
+      <div class="feat-card-icon">🔧</div>
+      <h4>ورشة ميكانيك متكاملة</h4>
+      <p>أدوات ومعدات احترافية لصيانة الآلات وأجهزة القياس الدقيقة.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-card-icon">💧</div>
+      <h4>منظومة هيدروليك</h4>
+      <p>وحدات هيدروليكية تدريبية لتطبيق مبادئ الضغط السائل عملياً.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-card-icon">🔥</div>
+      <h4>ورشة لحام متطورة</h4>
+      <p>أجهزة لحام MIG/TIG وكهربائي مع كامل معدات السلامة المهنية.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-card-icon">🏭</div>
+      <h4>تدريب ميداني</h4>
+      <p>تدريب عملي في مصانع وورش حقيقية لاكتساب الخبرة الميدانية.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section class="curr-section" id="curriculum">
+  <div class="section-wrap curr-inner">
+    <div class="reveal">
+      <div class="section-tag">المناهج</div>
+      <h2 class="section-title">المناهج الدراسية الحديثة</h2>
+      <p class="section-desc">كتب رسمية محدثة وفق مناهج وزارة التربية العراقية لجميع المراحل المهنية الثلاث.</p>
+    </div>
+    <div class="reveal">
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(this,'y1')">الأول مهني</button>
+        <button class="tab-btn" onclick="switchTab(this,'y2')">الثاني مهني</button>
+        <button class="tab-btn" onclick="switchTab(this,'y3')">الثالث مهني</button>
+      </div>
+
+      <!-- Year 1 -->
+      <div class="tab-pane active" id="y1">
+        <div class="subj-card"><span class="subj-icon">🔬</span><div class="subj-name">الطبيعيات</div><div class="subj-desc">الفيزياء المرتبطة بالميكانيك وعلم المواد</div></div>
+        <div class="subj-card"><span class="subj-icon">📖</span><div class="subj-name">اللغة العربية</div><div class="subj-desc">مهارات الكتابة والتعبير والقراءة</div></div>
+        <div class="subj-card"><span class="subj-icon">🌍</span><div class="subj-name">اللغة الانكليزية</div><div class="subj-desc">المصطلحات التقنية والتواصل المهني</div></div>
+        <div class="subj-card"><span class="subj-icon">📐</span><div class="subj-name">الرياضيات</div><div class="subj-desc">الحسابات الهندسية الأساسية للميكانيك</div></div>
+        <div class="subj-card"><span class="subj-icon">⚙️</span><div class="subj-name">العلوم الصناعية</div><div class="subj-desc">مبادئ الميكانيك الأساسية وعلم المواد</div></div>
+        <div class="subj-card"><span class="subj-icon">🛠️</span><div class="subj-name">التدريب العملي</div><div class="subj-desc">تمارين عملية في الورشة على الأدوات الأساسية</div></div>
+        <div class="subj-card"><span class="subj-icon">✏️</span><div class="subj-name">الرسم الصناعي</div><div class="subj-desc">قراءة المخططات الهندسية ورسم الأجزاء الميكانيكية</div></div>
+      </div>
+
+      <!-- Year 2 -->
+      <div class="tab-pane" id="y2">
+        <div class="subj-card"><span class="subj-icon">🔬</span><div class="subj-name">الطبيعيات</div><div class="subj-desc">الديناميكا الحرارية وأنظمة الاحتراق</div></div>
+        <div class="subj-card"><span class="subj-icon">📖</span><div class="subj-name">اللغة العربية</div><div class="subj-desc">الكتابة التوثيقية والتقارير التقنية</div></div>
+        <div class="subj-card"><span class="subj-icon">🌍</span><div class="subj-name">اللغة الانكليزية</div><div class="subj-desc">قراءة الكتيبات الفنية والمراجع الانكليزية</div></div>
+        <div class="subj-card"><span class="subj-icon">📐</span><div class="subj-name">الرياضيات</div><div class="subj-desc">حسابات القوى والعزوم ونسب التروس</div></div>
+        <div class="subj-card"><span class="subj-icon">🔩</span><div class="subj-name">العلوم الصناعية</div><div class="subj-desc">صيانة الآلات وأنظمة نقل الحركة</div></div>
+        <div class="subj-card"><span class="subj-icon">🛠️</span><div class="subj-name">التدريب العملي</div><div class="subj-desc">فك وتركيب الآلات والتروس عملياً</div></div>
+        <div class="subj-card"><span class="subj-icon">✏️</span><div class="subj-name">الرسم الصناعي</div><div class="subj-desc">رسم مقاطع الأجزاء الميكانيكية وقراءة المواصفات</div></div>
+      </div>
+
+      <!-- Year 3 -->
+      <div class="tab-pane" id="y3">
+        <div class="subj-card"><span class="subj-icon">⚙️</span><div class="subj-name">العلوم الصناعية</div><div class="subj-desc">الهيدروليك وأنظمة التحكم الصناعي</div></div>
+        <div class="subj-card"><span class="subj-icon">✏️</span><div class="subj-name">الرسم الصناعي</div><div class="subj-desc">مخططات الدوائر الهيدروليكية والميكانيكية</div></div>
+        <div class="subj-card"><span class="subj-icon">🏭</span><div class="subj-name">التدريب العملي</div><div class="subj-desc">تدريب ميداني في مصانع وورش صناعية</div></div>
+        <div class="subj-card"><span class="subj-icon">🔬</span><div class="subj-name">الطبيعيات</div><div class="subj-desc">الميكانيكا التطبيقية ومبادئ الديناميكا</div></div>
+        <div class="subj-card"><span class="subj-icon">📖</span><div class="subj-name">اللغة العربية</div><div class="subj-desc">الكتابة الاحترافية ومهارات التواصل في بيئة العمل</div></div>
+        <div class="subj-card"><span class="subj-icon">📐</span><div class="subj-name">الرياضيات</div><div class="subj-desc">رياضيات متقدمة للتحليل الهندسي والتشخيص</div></div>
+        <div class="subj-card"><span class="subj-icon">🌍</span><div class="subj-name">اللغة الانكليزية</div><div class="subj-desc">التواصل الدولي وسوق العمل العالمي</div></div>
+      </div>
+
+      <div class="books-row">
+        <a href="#" class="btn-primary" style="text-align:center;">📥 كتب الأول مهني</a>
+        <a href="#" class="btn-primary" style="text-align:center;">📥 كتب الثاني مهني</a>
+        <a href="#" class="btn-primary" style="text-align:center;">📥 كتب الثالث مهني</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREERS -->
+<section class="career-section" id="careers">
+  <div class="section-wrap reveal">
+    <div class="section-tag">مستقبلك</div>
+    <h2 class="section-title">ماذا بعد التخرج؟</h2>
+    <p class="section-desc">خريج قسم الميكانيك لا يحصل على شهادة فقط — بل يحصل على مهنة حقيقية وأولوية في الكليات التقنية والمصانع ومراكز الصيانة.</p>
+    <div class="career-grid">
+      <div class="career-card"><span class="c-icon">🔧</span><div class="c-title">فني صيانة آلات</div><span class="c-badge">Maintenance Technician</span></div>
+      <div class="career-card"><span class="c-icon">💧</span><div class="c-title">فني هيدروليك</div><span class="c-badge">Hydraulic Technician</span></div>
+      <div class="career-card"><span class="c-icon">🔥</span><div class="c-title">فني لحام متخصص</div><span class="c-badge">Welding Specialist</span></div>
+      <div class="career-card"><span class="c-icon">🏭</span><div class="c-title">مشرف ورشة إنتاج</div><span class="c-badge">Production Supervisor</span></div>
+      <div class="career-card"><span class="c-icon">🎓</span><div class="c-title">الالتحاق بالكليات التقنية</div><span class="c-badge">Technical College</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer><p>© 2025 ثانوية الكرخ المهنية — قسم الميكانيك. جميع الحقوق محفوظة.</p></footer>
+
+<script>
+/* Particles */
+const cv=document.getElementById('bg-canvas'),cx=cv.getContext('2d');
+function rsz(){cv.width=innerWidth;cv.height=innerHeight;}rsz();window.addEventListener('resize',rsz);
+const P=Array.from({length:55},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.45,vy:(Math.random()-.5)*.45,r:Math.random()*1.5+.4,a:Math.random()*.5+.15}));
+(function loop(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>cv.width)p.vx*=-1;if(p.y<0||p.y>cv.height)p.vy*=-1;cx.beginPath();cx.arc(p.x,p.y,p.r,0,Math.PI*2);cx.fillStyle=`rgba(110,140,168,${p.a*.38})`;cx.fill();});
+  for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){const d=Math.hypot(P[i].x-P[j].x,P[i].y-P[j].y);if(d<130){cx.beginPath();cx.moveTo(P[i].x,P[i].y);cx.lineTo(P[j].x,P[j].y);cx.strokeStyle=`rgba(110,140,168,${.12*(1-d/130)})`;cx.lineWidth=.5;cx.stroke();}}
+  requestAnimationFrame(loop);
+})();
+
+/* Reveal */
+const rObs=new IntersectionObserver(en=>{en.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*60);});},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>rObs.observe(el));
+
+/* Counter */
+function animC(el,t){let c=0;const s=Math.ceil(t/40),iv=setInterval(()=>{c=Math.min(c+s,t);el.textContent=c;if(c>=t)clearInterval(iv);},30);}
+const cObs=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('[data-count]').forEach(el=>animC(el,+el.dataset.count));cObs.disconnect();}});},{threshold:.5});
+const fs=document.querySelector('.stat-card');if(fs)cObs.observe(fs);
+
+/* Tabs */
+function switchTab(btn,id){document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById(id).classList.add('active');}
+</script>
+</body>
+</html>

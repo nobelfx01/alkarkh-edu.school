@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قسم الذكاء الاصطناعي — ثانوية الكرخ المهنية</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #060810;
+  --bg2:     #090c18;
+  --bg3:     #0c1020;
+  --card:    #101428;
+  --accent:  #5b8dee;
+  --accent2: #a78bfa;
+  --accent3: #38bdf8;
+  --white:   #ffffff;
+  --text:    rgba(255,255,255,0.88);
+  --muted:   rgba(255,255,255,0.48);
+  --border:  rgba(91,141,238,0.28);
+  --border2: rgba(255,255,255,0.07);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;}
+
+header{position:sticky;top:0;z-index:200;background:rgba(6,8,16,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1160px;margin:0 auto;padding:0 5%;height:68px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-badge{width:40px;height:40px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 16px rgba(91,141,238,.5);}
+.logo-text .school{font-size:11px;color:var(--muted);display:block;}
+.logo-text .dept{font-size:14px;font-weight:800;color:var(--accent2);display:block;}
+.nav-links{display:flex;gap:4px;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:600;padding:7px 14px;border-radius:8px;transition:all .2s;}
+.nav-links a:hover{color:var(--accent);background:rgba(91,141,238,.08);}
+.back-btn{display:flex;align-items:center;gap:6px;color:var(--accent2);text-decoration:none;font-size:13px;font-weight:700;padding:8px 18px;border:1px solid var(--border);border-radius:50px;transition:all .3s;}
+.back-btn:hover{background:rgba(91,141,238,.1);border-color:var(--accent2);}
+
+/* HERO */
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;padding-top:68px;background:var(--bg);}
+.hero::before{content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 85% 25%,rgba(91,141,238,.22) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 50% at 10% 70%,rgba(167,139,250,.14) 0%,transparent 55%),
+    radial-gradient(ellipse 40% 40% at 50% 90%,rgba(56,189,248,.08) 0%,transparent 55%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(91,141,238,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(91,141,238,.04) 1px,transparent 1px);background-size:52px 52px;}
+.hero-stripe{position:absolute;width:2px;height:70%;background:linear-gradient(180deg,transparent,var(--accent2),transparent);left:calc(50% + 80px);top:15%;opacity:.18;animation:stripeGlow 4s ease-in-out infinite;}
+.hero-stripe2{position:absolute;width:1px;height:50%;background:linear-gradient(180deg,transparent,var(--accent3),transparent);left:calc(50% + 140px);top:25%;opacity:.12;animation:stripeGlow 5s ease-in-out .8s infinite;}
+@keyframes stripeGlow{0%,100%{opacity:.06;}50%{opacity:.3;}}
+
+/* floating dots */
+.dot{position:absolute;border-radius:50%;animation:floatDot linear infinite;pointer-events:none;}
+@keyframes floatDot{0%{transform:translateY(0) scale(1);opacity:.6;}50%{transform:translateY(-20px) scale(1.1);opacity:.9;}100%{transform:translateY(0) scale(1);opacity:.6;}}
+
+.hero-inner{position:relative;z-index:2;max-width:1160px;margin:0 auto;padding:80px 5% 120px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(91,141,238,.14);border:1px solid rgba(91,141,238,.4);color:var(--accent2);padding:6px 16px;border-radius:50px;font-size:12px;font-weight:700;margin-bottom:22px;letter-spacing:.5px;animation:fadeUp .8s ease both;}
+.hero h1{font-family:'Tajawal',sans-serif;font-size:clamp(2.4em,5vw,4.2em);font-weight:900;color:var(--white);line-height:1.15;margin-bottom:20px;animation:fadeUp .8s ease .15s both;}
+.hero h1 span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:15px;color:var(--muted);line-height:1.85;margin-bottom:38px;animation:fadeUp .8s ease .3s both;}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp .8s ease .45s both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+
+.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;animation:fadeUp .8s ease .6s both;}
+.stat-card{background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:18px;padding:26px 20px;text-align:center;backdrop-filter:blur(10px);transition:all .3s;position:relative;overflow:hidden;}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));opacity:0;transition:opacity .3s;}
+.stat-card:hover{border-color:var(--border);transform:translateY(-4px);}
+.stat-card:hover::before{opacity:1;}
+.stat-num{font-family:'Tajawal',sans-serif;font-size:2.6em;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:6px;display:block;}
+.stat-lbl{font-size:12px;color:var(--muted);}
+
+.btn-primary{display:inline-block;padding:13px 32px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--white);border-radius:50px;font-weight:800;font-size:14px;text-decoration:none;border:none;cursor:pointer;font-family:'Cairo',sans-serif;transition:all .3s;box-shadow:0 6px 22px rgba(91,141,238,.4);}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(167,139,250,.55);}
+.btn-outline{display:inline-block;padding:13px 32px;border:1.5px solid rgba(255,255,255,.18);color:var(--white);border-radius:50px;font-weight:700;font-size:14px;text-decoration:none;transition:all .3s;}
+.btn-outline:hover{border-color:var(--accent2);color:var(--accent2);background:rgba(167,139,250,.06);}
+
+.section-wrap{max-width:1160px;margin:0 auto;padding:100px 5%;}
+.section-tag{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+.section-tag::before{content:'';width:26px;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;}
+.section-title{font-family:'Tajawal',sans-serif;font-size:clamp(1.8em,3.5vw,2.6em);font-weight:900;color:var(--white);margin-bottom:12px;}
+.section-desc{font-size:15px;color:var(--muted);line-height:1.8;max-width:600px;margin-bottom:44px;}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* WHAT IS AI SECTION */
+.ai-intro-section{background:var(--bg2);position:relative;overflow:hidden;}
+.ai-intro-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 80% 50%,rgba(91,141,238,.09) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 20% 80%,rgba(167,139,250,.07) 0%,transparent 55%);}
+.ai-intro-inner{position:relative;z-index:1;max-width:1160px;margin:0 auto;padding:100px 5%;}
+.ai-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.ai-intro-text{}
+.ai-intro-visual{display:flex;flex-direction:column;gap:14px;}
+.ai-card-mini{background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:16px;padding:20px 22px;display:flex;align-items:flex-start;gap:14px;transition:all .3s;}
+.ai-card-mini:hover{border-color:var(--border);background:rgba(91,141,238,.05);transform:translateX(-5px);}
+.ai-card-mini-icon{font-size:26px;flex-shrink:0;}
+.ai-card-mini-text h4{font-size:14px;font-weight:800;color:var(--white);margin-bottom:5px;}
+.ai-card-mini-text p{font-size:12.5px;color:var(--muted);line-height:1.6;}
+.ai-highlight{background:linear-gradient(135deg,rgba(91,141,238,.08),rgba(167,139,250,.06));border:1px solid rgba(91,141,238,.2);border-radius:20px;padding:28px 24px;margin-top:24px;}
+.ai-highlight p{font-size:14px;color:rgba(255,255,255,.75);line-height:1.85;}
+.ai-highlight p span{color:var(--accent2);font-weight:700;}
+
+/* SPECS PANELS */
+.specs-section{background:var(--bg3);position:relative;overflow:hidden;}
+.specs-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 90% 50%,rgba(91,141,238,.08) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 10% 80%,rgba(167,139,250,.05) 0%,transparent 55%);}
+.specs-intro{max-width:1160px;margin:0 auto;padding:100px 5% 60px;position:relative;z-index:1;}
+
+.spec-panel{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;min-height:540px;overflow:hidden;border-top:1px solid var(--border2);}
+.spec-panel-img{position:relative;overflow:hidden;min-height:480px;}
+.spec-panel-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.4) saturate(1.2) hue-rotate(200deg);transition:transform 1s cubic-bezier(.25,.46,.45,.94);}
+.spec-panel:hover .spec-panel-img img{transform:scale(1.07);}
+
+.spec-panel.img-right .spec-panel-img::after{content:'';position:absolute;inset:0;background:linear-gradient(270deg,transparent 40%,var(--bg3) 100%);}
+.spec-panel.img-left .spec-panel-img::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 40%,var(--bg3) 100%);}
+.spec-panel.img-right{grid-template-columns:1fr 1fr;}
+.spec-panel.img-right .spec-panel-text{order:1;}
+.spec-panel.img-right .spec-panel-img{order:2;}
+.spec-panel.img-left{grid-template-columns:1fr 1fr;}
+.spec-panel.img-left .spec-panel-img{order:1;}
+.spec-panel.img-left .spec-panel-text{order:2;}
+
+.spec-panel-num{position:absolute;top:24px;left:28px;font-family:'Tajawal',sans-serif;font-size:5em;font-weight:900;color:rgba(91,141,238,.15);line-height:1;pointer-events:none;z-index:2;}
+.spec-panel-text{display:flex;flex-direction:column;justify-content:center;padding:60px 56px;background:var(--bg3);}
+.spec-panel-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(91,141,238,.1);border:1px solid var(--border);color:var(--accent2);padding:7px 18px;border-radius:50px;font-size:13px;font-weight:700;margin-bottom:28px;width:fit-content;}
+.spec-panel-badge span{font-size:18px;}
+.spec-panel-title{font-family:'Tajawal',sans-serif;font-size:clamp(1.7em,3vw,2.6em);font-weight:900;color:var(--white);line-height:1.2;margin-bottom:20px;}
+.spec-panel-title em{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal;}
+.spec-panel-desc{font-size:15px;color:var(--muted);line-height:1.9;margin-bottom:32px;}
+.spec-details{list-style:none;margin-bottom:32px;display:flex;flex-direction:column;gap:12px;}
+.spec-details li{display:flex;align-items:flex-start;gap:12px;font-size:14px;color:rgba(255,255,255,.75);line-height:1.6;}
+.spec-details li::before{content:'';flex-shrink:0;width:7px;height:7px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:50%;margin-top:7px;box-shadow:0 0 8px rgba(91,141,238,.6);}
+.spec-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.stag{padding:6px 16px;background:rgba(91,141,238,.08);border:1px solid rgba(91,141,238,.22);border-radius:50px;font-size:12px;color:var(--accent2);font-weight:600;transition:all .25s;}
+.stag:hover{background:rgba(167,139,250,.15);}
+.spec-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);}
+
+/* WORKSHOP */
+.workshop-section{background:var(--bg2);position:relative;overflow:hidden;}
+.workshop-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(91,141,238,.15) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 90% 100%,rgba(167,139,250,.08) 0%,transparent 55%);}
+.workshop-banner{position:relative;z-index:1;max-width:1160px;margin:0 auto;padding:100px 5% 0;}
+.workshop-banner-header{text-align:center;margin-bottom:50px;}
+.workshop-banner-img{border-radius:22px;overflow:hidden;border:1px solid var(--border);box-shadow:0 30px 80px rgba(0,0,0,.5);position:relative;height:380px;}
+.workshop-banner-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.38) saturate(1.3) hue-rotate(210deg);transition:transform .8s;}
+.workshop-banner-img:hover img{transform:scale(1.04);}
+.workshop-banner-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:40px;background:linear-gradient(135deg,rgba(6,8,16,.75) 0%,rgba(91,141,238,.18) 100%);}
+.workshop-banner-overlay h3{font-family:'Tajawal',sans-serif;font-size:2.4em;font-weight:900;color:var(--white);text-align:center;text-shadow:0 4px 20px rgba(0,0,0,.6);}
+.workshop-banner-overlay h3 span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+.workshop-features{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:0 5% 100px;position:relative;z-index:1;max-width:1160px;margin:32px auto 0;}
+.feat-card{background:var(--card);border:1px solid var(--border2);border-radius:18px;padding:28px 22px;transition:all .3s;position:relative;overflow:hidden;}
+.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));opacity:0;transition:opacity .3s;}
+.feat-card:hover{border-color:var(--border);transform:translateY(-6px);box-shadow:0 18px 50px rgba(0,0,0,.35);}
+.feat-card:hover::before{opacity:1;}
+.feat-card-icon{width:44px;height:44px;background:rgba(91,141,238,.12);border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;}
+.feat-card h4{font-size:14px;font-weight:800;color:var(--white);margin-bottom:8px;}
+.feat-card p{font-size:12.5px;color:var(--muted);line-height:1.7;}
+
+/* CURRICULUM */
+.curr-section{background:var(--bg3);position:relative;overflow:hidden;}
+.curr-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 100% 50%,rgba(91,141,238,.06) 0%,transparent 55%),radial-gradient(ellipse 40% 40% at 0% 20%,rgba(167,139,250,.07) 0%,transparent 55%);}
+.curr-inner{position:relative;z-index:1;}
+.tabs{display:flex;gap:6px;background:rgba(0,0,0,.4);padding:6px;border-radius:50px;width:fit-content;margin-bottom:36px;}
+.tab-btn{padding:10px 26px;border-radius:50px;border:none;background:transparent;color:var(--muted);font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .3s;}
+.tab-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--white);}
+.tab-btn:not(.active):hover{color:var(--white);}
+.tab-pane{display:none;}
+.tab-pane.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;animation:fadeIn .4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.subj-card{background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:20px 18px;transition:all .3s;cursor:default;}
+.subj-card:hover{border-color:var(--border);background:rgba(91,141,238,.05);transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.3);}
+.subj-icon{font-size:26px;margin-bottom:10px;display:block;}
+.subj-name{font-weight:800;font-size:14px;color:var(--white);margin-bottom:5px;}
+.subj-desc{font-size:12px;color:var(--muted);line-height:1.55;}
+.books-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:36px;padding-top:32px;border-top:1px solid var(--border2);}
+
+/* CAREERS */
+.career-section{background:var(--bg2);position:relative;overflow:hidden;}
+.career-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 20% 50%,rgba(91,141,238,.13) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 80% 80%,rgba(167,139,250,.08) 0%,transparent 55%);}
+.career-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px;position:relative;z-index:1;}
+.career-card{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:32px 20px;text-align:center;transition:all .4s;cursor:default;position:relative;overflow:hidden;}
+.career-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));transform:scaleX(0);transition:transform .4s;transform-origin:center;}
+.career-card:hover{border-color:var(--border);transform:translateY(-7px);box-shadow:0 18px 50px rgba(0,0,0,.4);}
+.career-card:hover::after{transform:scaleX(1);}
+.c-icon{font-size:2.8em;display:block;margin-bottom:14px;}
+.c-title{font-weight:800;font-size:14.5px;color:var(--white);margin-bottom:12px;}
+.c-badge{display:inline-block;padding:4px 14px;background:rgba(91,141,238,.1);border:1px solid rgba(91,141,238,.28);border-radius:50px;font-size:11.5px;color:var(--accent2);font-weight:600;}
+
+footer{background:#030408;border-top:1px solid var(--border);padding:32px 5%;text-align:center;color:var(--muted);font-size:13px;}
+
+@media(max-width:860px){
+  .hero-inner,.ai-intro-grid{grid-template-columns:1fr;gap:40px;}
+  .hero-inner{padding-bottom:60px;}
+  .hero-stats{grid-template-columns:1fr 1fr;}
+  .nav-links{display:none;}
+  .workshop-features{grid-template-columns:1fr 1fr;}
+  .tabs{flex-wrap:wrap;border-radius:16px;}
+  .spec-panel{grid-template-columns:1fr !important;}
+  .spec-panel .spec-panel-img,.spec-panel .spec-panel-text{order:unset !important;}
+  .spec-panel.img-right .spec-panel-img,.spec-panel.img-left .spec-panel-img{order:1 !important;}
+  .spec-panel.img-right .spec-panel-text,.spec-panel.img-left .spec-panel-text{order:2 !important;}
+  .spec-panel-img{min-height:260px;}
+  .spec-panel.img-right .spec-panel-img::after,.spec-panel.img-left .spec-panel-img::after{background:linear-gradient(180deg,transparent 40%,var(--bg3) 100%);}
+  .spec-panel-text{padding:36px 24px;}
+}
+@media(max-width:520px){
+  .workshop-features{grid-template-columns:1fr;}
+  .workshop-banner-img{height:220px;}
+  .workshop-banner-overlay h3{font-size:1.6em;}
+}
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+
+<!-- HEADER -->
+<header>
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">
+      <div class="logo-badge">🤖</div>
+      <div class="logo-text">
+        <span class="school">ثانوية الكرخ المهنية</span>
+        <span class="dept">قسم الذكاء الاصطناعي</span>
+      </div>
+    </a>
+    <nav><ul class="nav-links">
+      <li><a href="#ai-intro">ما هو الذكاء؟</a></li>
+      <li><a href="#specs">التخصصات</a></li>
+      <li><a href="#curriculum">المناهج</a></li>
+      <li><a href="#careers">الوظائف</a></li>
+    </ul></nav>
+    <a href="../index.html" class="back-btn">← الرئيسية</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-stripe"></div>
+  <div class="hero-stripe2"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">🎓 ثانوية الكرخ المهنية · بغداد</div>
+      <h1>مستقبل العالم<br>يبدأ من <span>هنا</span></h1>
+      <p class="hero-sub">الذكاء الاصطناعي لم يعد علم المستقبل فحسب — بل أصبح لغة الحاضر. نُعدّك لتفهم كيف تفكر الآلات، وكيف تبني نماذج ذكية حقيقية تحل مشكلات واقعية.</p>
+      <div class="hero-cta">
+        <a href="#specs" class="btn-primary">استكشف التخصصات</a>
+        <a href="#curriculum" class="btn-outline">📚 المناهج الدراسية</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card"><span class="stat-num" data-count="3">0</span><span class="stat-lbl">مراحل دراسية</span></div>
+      <div class="stat-card"><span class="stat-num" data-count="7">0</span><span class="stat-lbl">مادة تخصصية</span></div>
+      <div class="stat-card"><span class="stat-num" data-count="4">0</span><span class="stat-lbl">مسارات مهنية</span></div>
+      <div class="stat-card"><span class="stat-num">+20</span><span class="stat-lbl">سنة من التميز</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IS AI -->
+<section class="ai-intro-section" id="ai-intro">
+  <div class="ai-intro-inner">
+    <div class="ai-intro-grid reveal">
+      <div class="ai-intro-text">
+        <div class="section-tag">ما هو الذكاء الاصطناعي؟</div>
+        <h2 class="section-title">الآلة التي<br>تتعلم وتفكر</h2>
+        <p class="section-desc" style="margin-bottom:0;">الذكاء الاصطناعي هو فرع من علوم الحاسوب يهدف إلى بناء أنظمة قادرة على التعلم واتخاذ القرارات وحل المشكلات تلقائياً — تماماً كما يفعل الإنسان، بل وأحياناً أسرع وأدق.</p>
+        <div class="ai-highlight">
+          <p>اليوم، يعمل الذكاء الاصطناعي في كل مكان: من <span>التشخيص الطبي</span> وقيادة السيارات ذاتياً، إلى <span>التوصيات على يوتيوب</span> والترجمة الفورية والمساعدين الصوتيين. من يفهم هذه التقنية اليوم — سيقود العالم غداً.</p>
+        </div>
+      </div>
+      <div class="ai-intro-visual">
+        <div class="ai-card-mini">
+          <div class="ai-card-mini-icon">🧠</div>
+          <div class="ai-card-mini-text">
+            <h4>التعلم الآلي Machine Learning</h4>
+            <p>برمجة الآلات لتتعلم من البيانات دون أن تُبرمَج صراحةً لكل حالة.</p>
+          </div>
+        </div>
+        <div class="ai-card-mini">
+          <div class="ai-card-mini-icon">👁️</div>
+          <div class="ai-card-mini-text">
+            <h4>رؤية الحاسوب Computer Vision</h4>
+            <p>جعل الآلات قادرة على رؤية الصور وتحليلها والتعرف على محتواها.</p>
+          </div>
+        </div>
+        <div class="ai-card-mini">
+          <div class="ai-card-mini-icon">💬</div>
+          <div class="ai-card-mini-text">
+            <h4>معالجة اللغة الطبيعية NLP</h4>
+            <p>تمكين الحواسيب من فهم اللغة البشرية وتحليلها والرد عليها.</p>
+          </div>
+        </div>
+        <div class="ai-card-mini">
+          <div class="ai-card-mini-icon">🤖</div>
+          <div class="ai-card-mini-text">
+            <h4>الشبكات العصبية Neural Networks</h4>
+            <p>نماذج رياضية مستوحاة من دماغ الإنسان تُستخدم في التنبؤ والتصنيف.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALIZATIONS -->
+<section class="specs-section" id="specs">
+  <div class="specs-intro reveal">
+    <div class="section-tag">التخصصات</div>
+    <h2 class="section-title">مجالات الدراسة والتخصص</h2>
+    <p class="section-desc">أربعة محاور تقنية تغطي عالم الذكاء الاصطناعي الحديث، من البرمجة والبيانات إلى نماذج التعلم العميق والتطبيقات الذكية.</p>
+  </div>
+
+  <!-- PANEL 1 -->
+  <div class="spec-panel img-right reveal">
+    <div class="spec-panel-text">
+      <div class="spec-panel-badge"><span>🐍</span> التخصص الأول</div>
+      <h2 class="spec-panel-title">البرمجة والبيانات<br><em>أساس كل ذكاء</em></h2>
+      <p class="spec-panel-desc">
+        قبل أن تبني نموذجاً ذكياً، يجب أن تتقن لغة الآلة. ستتعلم البرمجة بلغة Python وكيف تجمع البيانات وتنظّفها وتحللها — لأن الذكاء الاصطناعي ليس سوى بيانات + خوارزميات.
+      </p>
+      <ul class="spec-details">
+        <li>إتقان برمجة Python من الأساسيات إلى البنى المتقدمة كالكلاسات والمكتبات الخارجية</li>
+        <li>جمع البيانات وتنظيفها ومعالجة القيم المفقودة والقيم الشاذة باستخدام Pandas وNumpy</li>
+        <li>تحليل البيانات وإنتاج رسوم بيانية تفاعلية باستخدام Matplotlib وSeaborn</li>
+        <li>فهم أنواع البيانات: المنظمة والنصية والصورية وكيفية تحضيرها لنماذج الذكاء الاصطناعي</li>
+        <li>التعامل مع قواعد البيانات SQL وربطها ببرامج Python لاستخراج البيانات وتحليلها</li>
+      </ul>
+      <div class="spec-tags">
+        <span class="stag">Python</span>
+        <span class="stag">Pandas</span>
+        <span class="stag">NumPy</span>
+        <span class="stag">تحليل البيانات</span>
+        <span class="stag">Matplotlib</span>
+        <span class="stag">SQL</span>
+      </div>
+    </div>
+    <div class="spec-panel-img">
+      <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1000&auto=format&fit=crop" alt="برمجة وبيانات">
+      <div class="spec-panel-num">01</div>
+    </div>
+  </div>
+
+  <div class="spec-divider"></div>
+
+  <!-- PANEL 2 -->
+  <div class="spec-panel img-left reveal">
+    <div class="spec-panel-img">
+      <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?q=80&w=1000&auto=format&fit=crop" alt="التعلم الآلي">
+      <div class="spec-panel-num">02</div>
+    </div>
+    <div class="spec-panel-text">
+      <div class="spec-panel-badge"><span>🧠</span> التخصص الثاني</div>
+      <h2 class="spec-panel-title">التعلم الآلي<br><em>تعليم الآلة التفكير</em></h2>
+      <p class="spec-panel-desc">
+        التعلم الآلي هو قلب الذكاء الاصطناعي. ستتعلم كيف تبني نماذج تتعلم من البيانات وتتنبأ بالنتائج وتُصنّف المعلومات — من الخوارزميات الكلاسيكية إلى أساسيات الشبكات العصبية.
+      </p>
+      <ul class="spec-details">
+        <li>فهم أنواع التعلم: الخاضع للإشراف Supervised والغير خاضع Unsupervised والتعزيزي</li>
+        <li>بناء نماذج تصنيف وتنبؤ باستخدام Scikit-learn: الانحدار، الأشجار، SVM والغابات العشوائية</li>
+        <li>تقييم النماذج وقياس دقتها باستخدام مقاييس Accuracy وPrecision وRecall وF1</li>
+        <li>التعامل مع مشكلة الإفراط في التخصيص Overfitting وأساليب التحسين المناسبة</li>
+        <li>مقدمة للشبكات العصبية Neural Networks ومعمارياتها الأساسية مع TensorFlow/Keras</li>
+      </ul>
+      <div class="spec-tags">
+        <span class="stag">Scikit-learn</span>
+        <span class="stag">Supervised ML</span>
+        <span class="stag">Neural Networks</span>
+        <span class="stag">TensorFlow</span>
+        <span class="stag">Model Evaluation</span>
+        <span class="stag">Overfitting</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="spec-divider"></div>
+
+  <!-- PANEL 3 -->
+  <div class="spec-panel img-right reveal">
+    <div class="spec-panel-text">
+      <div class="spec-panel-badge"><span>👁️</span> التخصص الثالث</div>
+      <h2 class="spec-panel-title">رؤية الحاسوب<br><em>وتحليل الصور</em></h2>
+      <p class="spec-panel-desc">
+        كيف تُميّز الكاميرا بين وجه وآخر؟ كيف تكتشف السيارة الذاتية القيادة العوائق؟ ستتعلم جعل الآلة ترى وتفهم الصور والفيديو باستخدام الشبكات التلافيفية العميقة CNN.
+      </p>
+      <ul class="spec-details">
+        <li>أساسيات معالجة الصور: الفلترة، الحافة، الألوان وتحويل الصور رقمياً باستخدام OpenCV</li>
+        <li>بناء شبكات CNN تلافيفية لتصنيف الصور والتعرف على الأنماط المرئية المعقدة</li>
+        <li>تطبيق تقنية التعلم الانتقالي Transfer Learning باستخدام نماذج مدربة مسبقاً كـ ResNet</li>
+        <li>تنفيذ مشاريع التعرف على الوجوه وكشف الكائنات Object Detection باستخدام YOLO</li>
+        <li>تطبيقات واقعية: كشف عيوب التصنيع، تحليل الصور الطبية، أنظمة المراقبة الذكية</li>
+      </ul>
+      <div class="spec-tags">
+        <span class="stag">OpenCV</span>
+        <span class="stag">CNN</span>
+        <span class="stag">YOLO</span>
+        <span class="stag">Transfer Learning</span>
+        <span class="stag">Object Detection</span>
+        <span class="stag">ResNet</span>
+      </div>
+    </div>
+    <div class="spec-panel-img">
+      <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1000&auto=format&fit=crop" alt="رؤية الحاسوب">
+      <div class="spec-panel-num">03</div>
+    </div>
+  </div>
+
+  <div class="spec-divider"></div>
+
+  <!-- PANEL 4 -->
+  <div class="spec-panel img-left reveal">
+    <div class="spec-panel-img">
+      <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1000&auto=format&fit=crop" alt="تطبيقات ذكاء اصطناعي">
+      <div class="spec-panel-num">04</div>
+    </div>
+    <div class="spec-panel-text">
+      <div class="spec-panel-badge"><span>🚀</span> التخصص الرابع</div>
+      <h2 class="spec-panel-title">تطبيقات الذكاء<br><em>من الفكرة إلى المنتج</em></h2>
+      <p class="spec-panel-desc">
+        المرحلة الأهم — تحويل النموذج الذكي إلى منتج حقيقي يستخدمه الناس. ستتعلم نشر النماذج ودمجها في تطبيقات وبناء واجهات مستخدم ذكية وربطها بالعالم الحقيقي.
+      </p>
+      <ul class="spec-details">
+        <li>بناء APIs ذكية باستخدام FastAPI أو Flask لربط نماذج الذكاء الاصطناعي بالتطبيقات</li>
+        <li>نشر النماذج Deployment على السحابة السحابية باستخدام منصات كـ Google Cloud أو AWS</li>
+        <li>بناء تطبيقات ذكاء اصطناعي تفاعلية مع واجهات مستخدم بسيطة باستخدام Streamlit</li>
+        <li>إدارة دورة حياة النموذج MLOps: التحديث المستمر ومراقبة الأداء وإعادة التدريب</li>
+        <li>تنفيذ مشاريع متكاملة نهاية إلى نهاية End-to-End تجمع البيانات والنموذج والتطبيق</li>
+      </ul>
+      <div class="spec-tags">
+        <span class="stag">FastAPI</span>
+        <span class="stag">Deployment</span>
+        <span class="stag">Streamlit</span>
+        <span class="stag">MLOps</span>
+        <span class="stag">Cloud AI</span>
+        <span class="stag">End-to-End</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LAB -->
+<section class="workshop-section" id="workshop">
+  <div class="workshop-banner reveal">
+    <div class="workshop-banner-header">
+      <div class="section-tag" style="justify-content:center;">مختبر الذكاء</div>
+      <h2 class="section-title" style="text-align:center;">تدريب عملي في مختبر متخصص</h2>
+      <p class="section-desc" style="text-align:center;margin:0 auto 40px;">لن تكتفي بالنظرية فحسب — ستبرمج وتُدرّب نماذج حقيقية وتحل مشكلات واقعية في مختبر مجهّز بأحدث الأجهزة.</p>
+    </div>
+    <div class="workshop-banner-img">
+      <img src="https://images.unsplash.com/photo-1661956602153-23384936a1d3?q=80&w=1400&auto=format&fit=crop" alt="مختبر الذكاء الاصطناعي">
+      <div class="workshop-banner-overlay">
+        <h3>من <span>السطر الأول من الكود</span><br>إلى منتج ذكي حقيقي</h3>
+      </div>
+    </div>
+  </div>
+  <div class="workshop-features reveal">
+    <div class="feat-card">
+      <div class="feat-card-icon">💻</div>
+      <h4>مختبر حوسبة متقدم</h4>
+      <p>أجهزة بمعالجات GPU قوية لتدريب نماذج الذكاء الاصطناعي الثقيلة.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-card-icon">☁️</div>
+      <h4>منصات سحابية</h4>
+      <p>وصول إلى Google Colab وAWS Education لتدريب النماذج على السحابة.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-card-icon">📊</div>
+      <h4>مستودعات البيانات</h4>
+      <p>مجموعات بيانات حقيقية ومتنوعة للتدريب والاختبار والمشاريع.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-card-icon">🏢</div>
+      <h4>شراكات تقنية</h4>
+      <p>تدريب ميداني مع شركات تقنية وبرامج تطوعية في مشاريع ذكاء حقيقية.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section class="curr-section" id="curriculum">
+  <div class="section-wrap curr-inner">
+    <div class="reveal">
+      <div class="section-tag">المناهج</div>
+      <h2 class="section-title">المناهج الدراسية الحديثة</h2>
+      <p class="section-desc">كتب رسمية محدثة وفق مناهج وزارة التربية العراقية لجميع المراحل المهنية الثلاث.</p>
+    </div>
+    <div class="reveal">
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(this,'y1')">الأول مهني</button>
+        <button class="tab-btn" onclick="switchTab(this,'y2')">الثاني مهني</button>
+        <button class="tab-btn" onclick="switchTab(this,'y3')">الثالث مهني</button>
+      </div>
+
+      <!-- Year 1 -->
+      <div class="tab-pane active" id="y1">
+        <div class="subj-card"><span class="subj-icon">🔬</span><div class="subj-name">الطبيعيات</div><div class="subj-desc">أساسيات الفيزياء والرياضيات المرتبطة بالحوسبة</div></div>
+        <div class="subj-card"><span class="subj-icon">📖</span><div class="subj-name">اللغة العربية</div><div class="subj-desc">مهارات الكتابة والتعبير والقراءة</div></div>
+        <div class="subj-card"><span class="subj-icon">🌍</span><div class="subj-name">اللغة الانكليزية</div><div class="subj-desc">المصطلحات التقنية والتواصل المهني</div></div>
+        <div class="subj-card"><span class="subj-icon">📐</span><div class="subj-name">الرياضيات</div><div class="subj-desc">الجبر الخطي والاحتماليات أساس الذكاء الاصطناعي</div></div>
+        <div class="subj-card"><span class="subj-icon">🤖</span><div class="subj-name">العلوم الصناعية</div><div class="subj-desc">مبادئ الحوسبة والبرمجة وأساسيات الذكاء الاصطناعي</div></div>
+        <div class="subj-card"><span class="subj-icon">💻</span><div class="subj-name">التدريب العملي</div><div class="subj-desc">تمارين برمجة Python ومشاريع تطبيقية أولى</div></div>
+        <div class="subj-card"><span class="subj-icon">✏️</span><div class="subj-name">الرسم الصناعي</div><div class="subj-desc">تصميم خوارزميات ومخططات تدفق البيانات</div></div>
+      </div>
+
+      <!-- Year 2 -->
+      <div class="tab-pane" id="y2">
+        <div class="subj-card"><span class="subj-icon">🔬</span><div class="subj-name">الطبيعيات</div><div class="subj-desc">الرياضيات التطبيقية والإحصاء لتحليل البيانات</div></div>
+        <div class="subj-card"><span class="subj-icon">📖</span><div class="subj-name">اللغة العربية</div><div class="subj-desc">كتابة التقارير التقنية والتوثيق المهني</div></div>
+        <div class="subj-card"><span class="subj-icon">🌍</span><div class="subj-name">اللغة الانكليزية</div><div class="subj-desc">قراءة التوثيق التقني والأبحاث العلمية</div></div>
+        <div class="subj-card"><span class="subj-icon">📐</span><div class="subj-name">الرياضيات</div><div class="subj-desc">حساب التفاضل والتكامل ورياضيات نماذج التعلم</div></div>
+        <div class="subj-card"><span class="subj-icon">🧠</span><div class="subj-name">العلوم الصناعية</div><div class="subj-desc">التعلم الآلي والشبكات العصبية وتحليل البيانات</div></div>
+        <div class="subj-card"><span class="subj-icon">✏️</span><div class="subj-name">الرسم الصناعي</div><div class="subj-desc">رسم بنية الشبكات العصبية ومخططات النماذج</div></div>
+        <div class="subj-card"><span class="subj-icon">💻</span><div class="subj-name">التدريب العملي</div><div class="subj-desc">بناء نماذج تعلم آلي حقيقية وتقييمها</div></div>
+      </div>
+
+      <!-- Year 3 -->
+      <div class="tab-pane" id="y3">
+        <div class="subj-card"><span class="subj-icon">🔬</span><div class="subj-name">الطبيعيات</div><div class="subj-desc">فيزياء الحوسبة الكمية ومستقبل معالجة البيانات</div></div>
+        <div class="subj-card"><span class="subj-icon">📖</span><div class="subj-name">اللغة العربية</div><div class="subj-desc">الكتابة الاحترافية ومهارات التواصل في بيئة العمل</div></div>
+        <div class="subj-card"><span class="subj-icon">📐</span><div class="subj-name">الرياضيات</div><div class="subj-desc">رياضيات متقدمة للتعلم العميق والشبكات العصبية</div></div>
+        <div class="subj-card"><span class="subj-icon">🌍</span><div class="subj-name">اللغة الانكليزية</div><div class="subj-desc">التواصل الدولي وسوق العمل التقني العالمي</div></div>
+        <div class="subj-card"><span class="subj-icon">🚀</span><div class="subj-name">العلوم الصناعية</div><div class="subj-desc">نشر النماذج وتطبيقات الذكاء الاصطناعي الحقيقية</div></div>
+        <div class="subj-card"><span class="subj-icon">💻</span><div class="subj-name">التدريب العملي</div><div class="subj-desc">تدريب ميداني مع شركات تقنية ومشاريع حقيقية</div></div>
+        <div class="subj-card"><span class="subj-icon">✏️</span><div class="subj-name">الرسم الصناعي</div><div class="subj-desc">تصميم أنظمة ذكاء اصطناعي متكاملة ومخططاتها</div></div>
+      </div>
+
+      <div class="books-row">
+        <a href="#" class="btn-primary" style="text-align:center;">📥 كتب الأول مهني</a>
+        <a href="#" class="btn-primary" style="text-align:center;">📥 كتب الثاني مهني</a>
+        <a href="#" class="btn-primary" style="text-align:center;">📥 كتب الثالث مهني</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREERS -->
+<section class="career-section" id="careers">
+  <div class="section-wrap reveal">
+    <div class="section-tag">مستقبلك</div>
+    <h2 class="section-title">ماذا بعد التخرج؟</h2>
+    <p class="section-desc">خريج قسم الذكاء الاصطناعي يمتلك أكثر المهارات طلباً في سوق العمل العالمي — مع أولوية في الكليات التقنية وشركات التكنولوجيا الكبرى.</p>
+    <div class="career-grid">
+      <div class="career-card"><span class="c-icon">🧠</span><div class="c-title">مهندس تعلم آلي</div><span class="c-badge">ML Engineer</span></div>
+      <div class="career-card"><span class="c-icon">📊</span><div class="c-title">محلل بيانات</div><span class="c-badge">Data Analyst</span></div>
+      <div class="career-card"><span class="c-icon">👁️</span><div class="c-title">فني رؤية حاسوب</div><span class="c-badge">CV Engineer</span></div>
+      <div class="career-card"><span class="c-icon">🤖</span><div class="c-title">مطور تطبيقات ذكية</div><span class="c-badge">AI Developer</span></div>
+      <div class="career-card"><span class="c-icon">🎓</span><div class="c-title">الالتحاق بالكليات التقنية</div><span class="c-badge">Technical College</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer><p>© 2025 ثانوية الكرخ المهنية — قسم الذكاء الاصطناعي. جميع الحقوق محفوظة.</p></footer>
+
+<script>
+/* Particles — blue/purple */
+const cv=document.getElementById('bg-canvas'),cx=cv.getContext('2d');
+function rsz(){cv.width=innerWidth;cv.height=innerHeight;}rsz();window.addEventListener('resize',rsz);
+const cols=['91,141,238','167,139,250','56,189,248'];
+const P=Array.from({length:65},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*1.6+.3,a:Math.random()*.5+.12,c:cols[Math.floor(Math.random()*cols.length)]}));
+(function loop(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>cv.width)p.vx*=-1;if(p.y<0||p.y>cv.height)p.vy*=-1;cx.beginPath();cx.arc(p.x,p.y,p.r,0,Math.PI*2);cx.fillStyle=`rgba(${p.c},${p.a*.4})`;cx.fill();});
+  for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){const d=Math.hypot(P[i].x-P[j].x,P[i].y-P[j].y);if(d<120){cx.beginPath();cx.moveTo(P[i].x,P[i].y);cx.lineTo(P[j].x,P[j].y);cx.strokeStyle=`rgba(91,141,238,${.1*(1-d/120)})`;cx.lineWidth=.5;cx.stroke();}}
+  requestAnimationFrame(loop);
+})();
+
+/* Reveal */
+const rObs=new IntersectionObserver(en=>{en.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*60);});},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>rObs.observe(el));
+
+/* Counter */
+function animC(el,t){let c=0;const s=Math.ceil(t/40),iv=setInterval(()=>{c=Math.min(c+s,t);el.textContent=c;if(c>=t)clearInterval(iv);},30);}
+const cObs=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('[data-count]').forEach(el=>animC(el,+el.dataset.count));cObs.disconnect();}});},{threshold:.5});
+const fs=document.querySelector('.stat-card');if(fs)cObs.observe(fs);
+
+/* Tabs */
+function switchTab(btn,id){document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById(id).classList.add('active');}
+</script>
+</body>
+</html>
