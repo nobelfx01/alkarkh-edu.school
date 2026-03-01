@@ -7,4 +7,4 @@ Disallow: /icons/
 Disallow: /manifest.json
 
 # خريطة الموقع (تأكد من الرابط الكامل)
-Sitemap: https://al-karkh.school/sitemap.xml
+Sitemap: https://alkarkh-edu.school/sitemap.xml
