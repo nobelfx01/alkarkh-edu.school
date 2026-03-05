@@ -1,19 +1,698 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>قريباً | alkarkh-edu.school</title>
-    <style>
-        body { background: #0f172a; color: white; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        .box { text-align: center; border: 2px solid #38bdf8; padding: 40px; border-radius: 20px; }
-        h1 { font-size: 2.5rem; margin-bottom: 10px; }
-        p { color: #94a3b8; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>اعدادية الكرخ المهنية الصباحية | تعليم مهني وتقني في بغداد</title>
+  <meta name="description" content="اعدادية الكرخ المهنية في بغداد — تعليم مهني وتقني متكامل يشمل: الذكاء الاصطناعي، الحاسبات، السيارات، الميكانيك، الديكور، التكييف، واللحام.">
+  <meta name="keywords" content="اعدادية الكرخ المهنية, تعليم مهني بغداد, اعدادية مهنية العراق, قسم الحاسبات, قسم السيارات, قسم الذكاء الاصطناعي">
+  <meta name="author" content="اعدادية الكرخ المهنية">
+  <meta name="robots" content="index, follow">
+  
+  <link rel="canonical" href="https://alkarkh-edu.school/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://alkarkh-edu.school/">
+  <meta property="og:title" content="اعدادية الكرخ المهنية | تعليم مهني وتقني في بغداد">
+  <meta property="og:description" content="تعليم مهني عالي الجودة — 7 أقسام متخصصة في قلب بغداد.">
+  <meta property="og:image" content="https://alkarkh-edu.school/Images/1.jpg">
+  <meta property="og:locale" content="ar_IQ">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+  <meta name="theme-color" content="#e8a020">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    @media (max-width: 900px) {
+      #navLinks.mobile-open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px; left: 0; right: 0;
+        background: rgba(10,22,40,0.99);
+        padding: 16px 5%;
+        border-bottom: 1px solid rgba(232,160,32,0.2);
+        gap: 4px;
+        z-index: 999;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="box">
-        <h1>alkarkh-edu.school</h1>
-        <p>الموقع قيد التطوير.. انتظرونا قريباً</p>
+
+<!-- ==============================
+     NAVBAR
+============================== -->
+<nav>
+  <a href="index.html" class="nav-logo">
+<div class="nav-logo-icon" style="background: none; border: none; padding: 0;"><img src="assets/icons/icon-192.png" alt="Logo" style="height: 40px; width: auto; display: block;"></div>
+    <div class="nav-logo-text">
+      اعدادية الكرخ المهنية
+      <span>KARKH VOCATIONAL SCHOOL</span>
     </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">عن المدرسة</a></li>
+    <li><a href="#departments">الأقسام</a></li>
+    <li><a href="#after-graduation">بعد التخرج</a></li>
+    <li><a href="#news">الأخبار</a></li>
+    <li><a href="#calculator">الإعفاء</a></li>
+    <li><a href="#gallery">المعرض</a></li>
+    <li><a href="#contact">اتصل بنا</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="القائمة" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+
+<!-- ==============================
+     HERO
+============================== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-badge">🏆 مؤسسة تعليمية رائدة منذ تأسيسها</div>
+      <h1 class="hero-title">
+        نصنع <span class="accent">المستقبل</span><br>
+        بأيدي محترفة
+      </h1>
+      <p class="hero-subtitle">
+        اعدادية الكرخ المهنية — تعليم تقني عالي الجودة يجمع بين المعرفة النظرية والمهارات العملية لبناء جيل متميز من الشباب المؤهلين.
+      </p>
+      <div class="hero-btns">
+        <a href="#departments" class="btn-primary">اكتشف الأقسام</a>
+        <a href="#about" class="btn-outline">تعرف علينا</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card"><div class="stat-number">7</div><div class="stat-label">أقسام مهنية</div></div>
+      <div class="stat-card"><div class="stat-number">+400</div><div class="stat-label">طالب</div></div>
+      <div class="stat-card"><div class="stat-number">100</div><div class="stat-label">عام من العطاء</div></div>
+      <div class="stat-card"><div class="stat-number">+20</div><div class="stat-label">معلماً متخصصاً</div></div>
+      <div class="stat-card"><div class="stat-number">+5</div><div class="stat-label">مختبرات</div></div>
+      <div class="stat-card"><div class="stat-number">2026</div><div class="stat-label">العام الدراسي</div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==============================
+     ABOUT
+============================== -->
+<section id="about">
+  <div class="about-inner">
+    <div class="reveal">
+      <div class="about-label">✦ من نحن</div>
+      <h2 class="about-title">تعليم مهني يصنع<br>الفارق الحقيقي</h2>
+      <p class="about-text">اعدادية الكرخ المهنية مؤسسة تعليمية رائدة تُعنى بالتعليم المهني والتقني، تسعى إلى تخريج كوادر مؤهلة تلبي متطلبات سوق العمل المحلي والإقليمي.</p>
+      <p class="about-text">نوفر بيئة تعليمية محفزة تجمع بين التعلم النظري والتطبيق العملي، مع أحدث التجهيزات والأجهزة في جميع الأقسام.</p>
+      <a href="#contact" class="btn-primary" style="margin-top:8px;">تواصل معنا</a>
+    </div>
+    <div class="about-cards reveal">
+      <div class="about-card">
+        <div class="about-card-icon">🎯</div>
+        <h4>رؤيتنا</h4>
+        <p>أن نكون المؤسسة التعليمية المهنية الرائدة في تخريج كوادر مؤهلة ومبدعة تلبي احتياجات سوق العمل المحلي والإقليمي.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">📚</div>
+        <h4>رسالتنا</h4>
+        <p>تقديم تعليم مهني عالي الجودة يجمع بين المعرفة النظرية والمهارات العملية في بيئة تعليمية محفزة تساهم في بناء جيل متميز.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">⭐</div>
+        <h4>قيمنا</h4>
+        <p>التميز، الإبداع، الالتزام، الاحترافية، والتطوير المستمر لمواكبة التطورات التكنولوجية والمهنية.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==============================
+     DEPARTMENT PANELS
+============================== -->
+<div class="dept-panels">
+
+  <!-- الذكاء الاصطناعي -->
+  <section class="panel text-right">
+    <div class="panel-bg">
+      <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?q=80&w=2000" alt="الذكاء الاصطناعي" loading="lazy">
+      <div class="panel-overlay"></div>
+    </div>
+    <div class="panel-content" style="color:#a78bfa;">
+      <div class="panel-badge">🤖 قسم الذكاء الاصطناعي</div>
+      <h2 class="panel-title">الذكاء الاصطناعي <br><span style="color:#a78bfa;">وتعلم الآلة</span></h2>
+      <p class="panel-desc">بناء الأنظمة التي تحاكي العقل البشري، وتطوير خوارزميات قادرة على تحليل البيانات واتخاذ القرار الذكي بشكل آلي ومتقدم.</p>
+      <ul class="panel-list" style="color:#a78bfa;">
+        <li>تطوير الشبكات العصبية والتعرف على الأنماط.</li>
+        <li>برمجة أنظمة الروبوتات والتحكم الذكي.</li>
+      </ul>
+      <a href="pages/dept-ai.html" class="panel-btn">تعرف على المزيد</a>
+    </div>
+  </section>
+
+  <!-- الحاسوب -->
+  <section class="panel text-left">
+    <div class="panel-bg">
+      <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000" alt="الحاسوب" loading="lazy">
+      <div class="panel-overlay"></div>
+    </div>
+    <div class="panel-content" style="color:#e8a020;">
+      <div class="panel-badge">💻 قسم الحاسوب</div>
+      <h2 class="panel-title">قسم تجميع <br><span style="color:#e8a020;">وصيانة الحاسوب</span></h2>
+      <p class="panel-desc">إتقان البناء المادي للحواسب وصيانتها، مع دراسة الشبكات وحماية أمن المعلومات من التهديدات السيبرانية في بيئات العمل المختلفة.</p>
+      <ul class="panel-list" style="color:#e8a020;">
+        <li>تشخيص وإصلاح أعطال اللوحة الأم والمعالجات.</li>
+        <li>إدارة الشبكات السلكية واللاسلكية والأمن الرقمي.</li>
+      </ul>
+      <a href="pages/dept-computers.html" class="panel-btn">تعرف على المزيد</a>
+    </div>
+  </section>
+
+  <!-- الميكانيك -->
+  <section class="panel text-right">
+    <div class="panel-bg">
+      <img src="https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?q=80&w=2000" alt="الميكانيك" loading="lazy">
+      <div class="panel-overlay"></div>
+    </div>
+    <div class="panel-content" style="color:#ef4444;">
+      <div class="panel-badge">⚙️ قسم الميكانيك</div>
+      <h2 class="panel-title">الهندسة الميكانيكية <br><span style="color:#ef4444;">وخطوط الإنتاج</span></h2>
+      <p class="panel-desc">دراسة القوى والحركة وتصميم الأجزاء الميكانيكية المعقدة باستخدام أحدث برامج النمذجة ثلاثية الأبعاد وتقنيات التصنيع الحديثة.</p>
+      <ul class="panel-list" style="color:#ef4444;">
+        <li>التصميم الميكانيكي المتقدم (CAD/CAM).</li>
+        <li>صيانة وإدارة أنظمة الأتمتة الصناعية والمصانع.</li>
+      </ul>
+      <a href="pages/dept-mechanics.html" class="panel-btn">تعرف على المزيد</a>
+    </div>
+  </section>
+
+  <!-- السيارات -->
+  <section class="panel text-left">
+    <div class="panel-bg">
+      <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=2000" alt="السيارات" loading="lazy">
+      <div class="panel-overlay"></div>
+    </div>
+    <div class="panel-content" style="color:#f97316;">
+      <div class="panel-badge">🚗 قسم ميكانيك السيارات</div>
+      <h2 class="panel-title">تكنولوجيا المركبات <br><span style="color:#f97316;">والسيارات الحديثة</span></h2>
+      <p class="panel-desc">تغطية شاملة لميكانيك السيارات، مع التركيز المكثف على السيارات الهجينة والكهربائية وتقنيات الفحص الإلكتروني وبرمجة العقول.</p>
+      <ul class="panel-list" style="color:#f97316;">
+        <li>فحص وصيانة أنظمة الحقن الإلكتروني والحساسات.</li>
+        <li>إصلاح أنظمة نقل الحركة والبرمجيات الذكية للمركبات.</li>
+      </ul>
+      <a href="pages/dept-cars.html" class="panel-btn">تعرف على المزيد</a>
+    </div>
+  </section>
+
+  <!-- الديكور -->
+  <section class="panel text-right">
+    <div class="panel-bg">
+      <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000" alt="الديكور" loading="lazy">
+      <div class="panel-overlay"></div>
+    </div>
+    <div class="panel-content" style="color:#fcd34d;">
+      <div class="panel-badge">قسم الديكور</div>
+      <h2 class="panel-title">فن المساحات <br><span style="color:#fcd34d;">والتصميم الإبداعي</span></h2>
+      <p class="panel-desc">خلق بيئات جمالية ووظيفية تجمع بين الحداثة والراحة، مع دراسة تناسق الألوان، الإضاءة، وتوزيع الأثاث باحترافية.</p>
+      <ul class="panel-list" style="color:#fcd34d;">
+        <li>تصميم المخططات المعمارية الداخلية والفرش.</li>
+        <li>تنفيذ أعمال الجبس، الدهانات، والإكسسوارات الفنية.</li>
+      </ul>
+      <a href="pages/dept-decor.html" class="panel-btn">تعرف على المزيد</a>
+    </div>
+  </section>
+
+  <!-- اللحام -->
+  <section class="panel text-left">
+    <div class="panel-bg">
+      <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2000" alt="اللحام" loading="lazy">
+      <div class="panel-overlay"></div>
+    </div>
+    <div class="panel-content" style="color:#fb923c;">
+      <div class="panel-badge">🔥 قسم لحام وتشكيل المعادن</div>
+      <h2 class="panel-title">صناعة المعادن <br><span style="color:#fb923c;">والهياكل الحديدية</span></h2>
+      <p class="panel-desc">إتقان فنون الربط والتشكيل المعدني باستخدام أحدث تقنيات اللحام الكهربائي والقوس والأرجون لبناء الهياكل المتينة.</p>
+      <ul class="panel-list" style="color:#fb923c;">
+        <li>تقنيات اللحام الحديثة (TIG / MIG / Arc Welding).</li>
+        <li>تصميم وتصنيع الهياكل المعدنية والقطع الصناعية.</li>
+      </ul>
+      <a href="pages/dept-welding.html" class="panel-btn">تعرف على المزيد</a>
+    </div>
+  </section>
+
+  <!-- التكييف والتبريد -->
+  <section class="panel text-right">
+    <div class="panel-bg">
+      <img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?q=80&w=2000" alt="التكييف والتبريد" loading="lazy">
+      <div class="panel-overlay"></div>
+    </div>
+    <div class="panel-content" style="color:#10b981;">
+      <div class="panel-badge">❄️ قسم التكييف والتبريد</div>
+      <h2 class="panel-title">أنظمة التبريد <br><span style="color:#10b981;">والتكييف الحديثة</span></h2>
+      <p class="panel-desc">دراسة شاملة لأنظمة التبريد والتكييف، من المبادئ الأساسية للديناميكا الحرارية وصولاً إلى تركيب وصيانة أحدث الأجهزة في البيئات المختلفة.</p>
+      <ul class="panel-list" style="color:#10b981;">
+        <li>تركيب وصيانة أنظمة التكييف المركزي والمنفصل.</li>
+        <li>تشخيص أعطال الضواغط والمبخرات ودوائر التبريد.</li>
+      </ul>
+      <a href="pages/dept-hvac.html" class="panel-btn">تعرف على المزيد</a>
+    </div>
+  </section>
+
+</div><!-- /dept-panels -->
+
+
+<!-- ==============================
+     DEPARTMENTS CARDS
+============================== -->
+<section id="departments">
+  <div class="section">
+    <div class="section-header reveal">
+      <div class="section-tag">الأقسام الدراسية</div>
+      <h2 class="section-title">تخصصات تواكب سوق العمل</h2>
+      <p class="section-desc">نقدم تخصصات مهنية متنوعة ومطلوبة تؤهل الطلاب للعمل في أبرز القطاعات الصناعية والتقنية</p>
+    </div>
+    <div class="depts-grid">
+
+      <a href="pages/dept-computers.html" class="dept-card reveal" style="--dept-border:rgba(59,130,246,0.4);--dept-tag-bg:rgba(59,130,246,0.1);--dept-tag-color:#3b82f6;">
+        <span class="dept-icon">💻</span>
+        <div class="dept-title">قسم الحاسبات</div>
+        <p class="dept-desc">تعلم البرمجة، تطوير التطبيقات، صيانة الأجهزة، إدارة الشبكات، وتصميم المواقع الإلكترونية باستخدام أحدث التقنيات.</p>
+        <span class="dept-tag">تقنية المعلومات</span>
+      </a>
+
+      <a href="pages/dept-decor.html" class="dept-card reveal" style="--dept-border:rgba(239,68,68,0.35);--dept-tag-bg:rgba(239,68,68,0.1);--dept-tag-color:#ef4444;">
+        <span class="dept-icon">🎨</span>
+        <div class="dept-title">قسم الديكور</div>
+        <p class="dept-desc">تصميم الديكور الداخلي والخارجي، فنون الرسم الهندسي، التصميم ثلاثي الأبعاد، واختيار الألوان والمواد.</p>
+        <span class="dept-tag">فنون وتصميم</span>
+      </a>
+
+      <a href="pages/dept-cars.html" class="dept-card reveal" style="--dept-border:rgba(245,158,11,0.4);--dept-tag-bg:rgba(245,158,11,0.1);--dept-tag-color:#f59e0b;">
+        <span class="dept-icon">🚗</span>
+        <div class="dept-title">قسم السيارات</div>
+        <p class="dept-desc">صيانة وإصلاح السيارات، الميكانيك، الكهرباء، التشخيص الإلكتروني، وفحص المركبات بأحدث المعدات.</p>
+        <span class="dept-tag">هندسة مركبات</span>
+      </a>
+
+      <a href="pages/dept-mechanics.html" class="dept-card reveal" style="--dept-border:rgba(107,114,128,0.3);--dept-tag-bg:rgba(107,114,128,0.1);--dept-tag-color:#9ca3af;">
+        <span class="dept-icon">⚙️</span>
+        <div class="dept-title">قسم الميكانيك</div>
+        <p class="dept-desc">صيانة وتشغيل الآلات الصناعية، الخراطة، التفريز، والأنظمة الهيدروليكية والنيوماتيكية في الورش الفنية.</p>
+        <span class="dept-tag">ميكانيك صناعي</span>
+      </a>
+
+      <a href="pages/dept-welding.html" class="dept-card reveal" style="--dept-border:rgba(249,115,22,0.4);--dept-tag-bg:rgba(249,115,22,0.1);--dept-tag-color:#f97316;">
+        <span class="dept-icon">🔥</span>
+        <div class="dept-title">لحام وتشكيل المعادن</div>
+        <p class="dept-desc">تقنيات اللحام المتنوعة، تشكيل وقطع المعادن، قراءة الرسومات الهندسية، والعمل على المشاريع الصناعية الكبرى.</p>
+        <span class="dept-tag">صناعة معدنية</span>
+      </a>
+
+      <a href="pages/dept-hvac.html" class="dept-card reveal" style="--dept-border:rgba(16,185,129,0.35);--dept-tag-bg:rgba(16,185,129,0.1);--dept-tag-color:#10b981;">
+        <span class="dept-icon">❄️</span>
+        <div class="dept-title">قسم التكييف والتبريد</div>
+        <p class="dept-desc">صيانة وتركيب أنظمة التكييف والتبريد، تشخيص الأعطال، الصيانة الدورية، وإصلاح الأنظمة الحديثة.</p>
+        <span class="dept-tag">أنظمة حرارية</span>
+      </a>
+
+      <a href="pages/dept-ai.html" class="dept-card reveal" style="--dept-border:rgba(139,92,246,0.4);--dept-tag-bg:rgba(139,92,246,0.1);--dept-tag-color:#8b5cf6;">
+        <span class="dept-icon">🤖</span>
+        <div class="dept-title">قسم الذكاء الاصطناعي</div>
+        <p class="dept-desc">تعلم الآلة، الرؤية الحاسوبية، معالجة اللغة الطبيعية، وبناء نماذج ذكية للتطبيقات الحديثة.</p>
+        <span class="dept-tag">ذكاء اصطناعي</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ==============================
+     AFTER GRADUATION
+============================== -->
+<section id="after-graduation">
+  <div class="inner">
+    <div class="grad-header reveal">
+      <div class="section-tag" style="color:#a78bfa; border-color:rgba(139,92,246,0.3);">بعد التخرج</div>
+      <h2 class="section-title">ماذا بعد التخرج؟</h2>
+      <p class="section-desc">تخرّجك من اعدادية الكرخ المهنية ليس نهاية الطريق — بل هو بداية مسيرتك الأكاديمية والمهنية</p>
+    </div>
+
+    <div class="grad-box reveal">
+      <div class="grad-box-head">
+        <div class="grad-box-icon">🎓</div>
+        <div>
+          <div class="grad-subtitle">نظام القبول الجامعي</div>
+          <div class="grad-title">نظام أعلى 10% — مفتاحك للجامعة</div>
+        </div>
+      </div>
+      <p class="grad-desc">
+        وفق تعليمات وزارة التربية، يُحدَّد مصيرك الجامعي بناءً على ترتيبك بين زملائك في
+        <strong style="color:#a78bfa;">نفس القسم</strong> على مستوى العراق. الطلاب الأوائل الذين يقعون ضمن أعلى
+        <strong style="color:#a78bfa;">10%</strong> من قسمهم يحظون بأفضلية القبول في الجامعات الحكومية.
+      </p>
+    </div>
+
+    <div class="tracks-grid reveal">
+      <div class="track-card success">
+        <div class="track-card-bg"></div>
+        <div class="track-inner">
+          <div class="track-badge success">🏆 أعلى 10% من القسم</div>
+          <h3 class="track-title">القبول في الجامعات الحكومية</h3>
+          <p class="track-desc">إذا حققت نتائج تضعك ضمن أعلى 10% في قسمك على مستوى العراق، يحق لك التقديم على:</p>
+          <ul class="track-list">
+            <li><span class="track-dot success"></span><span>أقسام الهندسة العامة المرتبطة بتخصصك <span style="color:#22c55e;">(المدنية، الميكانيكية، الكهربائية، الحاسبات…)</span></span></li>
+            <li><span class="track-dot success"></span><span>أقسام العلوم <span style="color:#22c55e;">(رياضيات، فيزياء، علوم حاسبات…)</span></span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="track-card warning">
+        <div class="track-card-bg"></div>
+        <div class="track-inner">
+          <div class="track-badge warning">📋 خارج الـ 10% الأوائل</div>
+          <h3 class="track-title">مسارات بديلة متعددة</h3>
+          <p class="track-desc">حتى لو لم تكن ضمن الـ10% الأوائل، تبقى أمامك فرص أكاديمية واسعة:</p>
+          <ul class="track-list">
+            <li><span class="track-dot warning"></span><span>الجامعات الحكومية المسائية في <span style="color:#e8a020;">أقسام الهندسة التقنية</span></span></li>
+            <li><span class="track-dot warning"></span><span>الجامعات الأهلية الخاصة في <span style="color:#e8a020;">أقسام الهندسة التقنية</span></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="grad-note reveal">
+      <span style="font-size:20px;flex-shrink:0;">💡</span>
+      <p><strong style="color:rgba(255,255,255,0.75);">تذكّر:</strong> التعليم المهني يفتح أبواباً واسعة في سوق العمل. المرجع النهائي هو دليل القبول المركزي لكل عام دراسي.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==============================
+     NEWS
+============================== -->
+  <!--
+<section id="news">
+  <div class="inner">
+    <div class="section-header reveal">
+      <div class="section-tag">الأخبار والفعاليات</div>
+      <h2 class="section-title">آخر الأخبار</h2>
+      <p class="section-desc">تابع كل جديد في اعدادية الكرخ المهنية من أخبار وفعاليات وإنجازات</p>
+    </div>
+    <div class="news-grid reveal">
+      <div class="news-card featured">
+        <div class="news-card-img" style="background:linear-gradient(135deg,#070e1a,#1e3a8a);">🎓</div>
+        <div class="news-card-body">
+          <span class="news-date">1 أكتوبر 2025</span>
+          <div class="news-title">بدء التسجيل للعام الدراسي 2025-2026</div>
+          <p class="news-text">تعلن إدارة المدرسة عن بدء التسجيل للطلاب الجدد. للمزيد يرجى مراجعة قسم التسجيل.</p>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card-img" style="background:linear-gradient(135deg,#070e1a,#92400e);">🏆</div>
+        <div class="news-card-body">
+          <span class="news-date">25 سبتمبر 2025</span>
+          <div class="news-title">تكريم الطلبة المتفوقين</div>
+          <p class="news-text">تم تكريم الطلبة الأوائل في حفل خاص بحضور أولياء الأمور والهيئة التدريسية.</p>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card-img" style="background:linear-gradient(135deg,#070e1a,#1e40af);">💻</div>
+        <div class="news-card-body">
+          <span class="news-date">20 سبتمبر 2025</span>
+          <div class="news-title">ورشة عمل في قسم الحاسبات</div>
+          <p class="news-text">ورشة عمل مكثفة حول البرمجة الحديثة بمشاركة خبراء متخصصين في المجال.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+-->
+
+
+
+<!-- ==============================
+     CALCULATOR
+============================== -->
+<section id="calculator">
+  <div class="inner" style="max-width:900px;">
+    <div class="section-header reveal">
+      <div class="section-tag">حاسبة الإعفاء</div>
+      <h2 class="section-title">نظام حساب الإعفاء</h2>
+      <p class="section-desc">احسب هل أنت مؤهل للإعفاء الفردي أو العام بناءً على درجات سعيك</p>
+      <div class="calc-mode-toggle">
+        <button id="tab-partial" class="tab-btn active-partial" onclick="switchMode('partial')">إعفاء فردي (مادة)</button>
+        <button id="tab-total"   class="tab-btn inactive"       onclick="switchMode('total')">إعفاء عام (كلي)</button>
+      </div>
+    </div>
+
+    <div id="mode-desc" class="reveal"></div>
+
+    <div class="calc-box reveal">
+      <div class="calc-grid-header">
+        <div class="calc-col-label" style="text-align:right;">اسم المادة</div>
+        <div class="calc-col-label">كورس 1</div>
+        <div class="calc-col-label">نصف سنة</div>
+        <div class="calc-col-label">كورس 2</div>
+        <div class="calc-col-label">المعدل</div>
+        <div></div>
+      </div>
+      <div id="subjectsContainer"></div>
+      <div id="add-btn-container">
+        <button class="add-subject-btn" onclick="addSubject()">+ إضافة مادة أخرى</button>
+      </div>
+      <button class="calc-btn" onclick="calcAll()">احسب النتيجة الآن ⚡</button>
+      <div id="finalResult"></div>
+    </div>
+    <p class="calc-note">المرجع النهائي هو تعليمات وزارة التربية العراقية</p>
+  </div>
+</section>
+
+
+<!-- ==============================
+     GALLERY
+============================== -->
+<section id="gallery">
+  <div class="section">
+    <div class="section-header reveal">
+      <div class="section-tag">معرض الصور</div>
+      <h2 class="section-title">لمحات من المدرسة</h2>
+      <p class="section-desc">صور من ورش العمل والأنشطة والفعاليات المدرسية</p>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <img src="assets/Images/1.jpg" alt="ورشة التكييف" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-caption">ورشة التكييف والتبريد</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/Images/2.jpg" alt="تدريب عملي" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-caption">التدريب العملي</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/Images/3.jpg" alt="معدات حديثة" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-caption">أحدث المعدات</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/Images/4.jpg" alt="صيانة" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-caption">صيانة الأنظمة</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/Images/5.jpg" alt="فعاليات" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-caption">فعاليات المدرسة</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==============================
+     CONTACT
+============================== -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="reveal">
+      <h2 class="contact-info-title">تواصل معنا</h2>
+      <p class="contact-intro">نحن سعداء بخدمتكم والإجابة على جميع استفساراتكم</p>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div class="contact-item-text"><strong>العنوان</strong><span>الكرخ، بغداد، العراق</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div class="contact-item-text"><strong>الهاتف</strong><span>07XX XXX XXXX</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">✉️</div>
+          <div class="contact-item-text"><strong>البريد الإلكتروني</strong><span>info@karkh-vocational.edu.iq</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🕐</div>
+          <div class="contact-item-text"><strong>أوقات الدوام</strong><span>الأحد – الخميس: 8:00 ص – 2:00 ظ</span></div>
+        </div>
+      </div>
+    </div>
+
+    <form class="contact-form reveal" id="contactForm" onsubmit="event.preventDefault(); sendMsg();">
+      <div class="form-group">
+        <label for="contactName">الاسم الكامل</label>
+        <input id="contactName" type="text" placeholder="أدخل اسمك الكامل" required>
+      </div>
+      <div class="form-group">
+        <label for="contactPhone">رقم الهاتف</label>
+        <input id="contactPhone" type="tel" placeholder="07XX XXX XXXX">
+      </div>
+      <div class="form-group">
+        <label for="contactEmail">البريد الإلكتروني</label>
+        <input id="contactEmail" type="email" placeholder="example@email.com">
+      </div>
+      <div class="form-group">
+        <label for="contactMessage">الرسالة</label>
+        <textarea id="contactMessage" rows="5" placeholder="اكتب رسالتك هنا..." required></textarea>
+      </div>
+      <button type="submit" class="calc-btn">إرسال الرسالة ✉️</button>
+    </form>
+  </div>
+</section>
+
+
+<!-- ==============================
+     FOOTER
+============================== -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <h3>اعدادية الكرخ المهنية</h3>
+      <p>نصنع المستقبل بأيدي محترفة ومبدعة — مؤسسة تعليمية رائدة في مجال التعليم المهني والتقني في بغداد.</p>
+      <div class="social-links">
+        <a class="social-link" href="#" title="فيسبوك">📘</a>
+        <a class="social-link" href="#" title="انستغرام">📷</a>
+        <a class="social-link" href="#" title="يوتيوب">📹</a>
+        <a class="social-link" href="#" title="تويتر">🐦</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>روابط سريعة</h4>
+      <ul>
+        <li><a href="#about">عن المدرسة</a></li>
+        <li><a href="#departments">الأقسام</a></li>
+        <li><a href="#after-graduation">بعد التخرج</a></li>
+        <li><a href="#news">الأخبار</a></li>
+        <li><a href="#calculator">حاسبة الإعفاء</a></li>
+        <li><a href="#gallery">المعرض</a></li>
+        <li><a href="#contact">اتصل بنا</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>الأقسام</h4>
+      <ul>
+        <li><a href="pages/dept-computers.html">قسم الحاسبات</a></li>
+        <li><a href="pages/dept-decor.html">قسم الديكور</a></li>
+        <li><a href="pages/dept-cars.html">قسم السيارات</a></li>
+        <li><a href="pages/dept-mechanics.html">قسم الميكانيك</a></li>
+        <li><a href="pages/dept-hvac.html">التكييف والتبريد</a></li>
+        <li><a href="pages/dept-welding.html">اللحام والمعادن</a></li>
+        <li><a href="pages/dept-ai.html">الذكاء الاصطناعي</a></li>
+      </ul>
+    </div>
+  </div>
+<div class="footer-custom-bottom" style="
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 20px; 
+    padding: 30px 10px; 
+    border-top: 1px solid rgba(232, 160, 32, 0.1); /* خفضنا شفافية الخط الفاصل */
+    margin-top: 40px;
+    flex-wrap: wrap;
+    direction: rtl;
+">
+    
+    <div class="footer-logo-side">
+        <img src="assets/icons/icon-192.png" alt="Logo" style="height: 60px; width: auto; filter: drop-shadow(0 0 3px rgba(232,160,32,0.2));">
+    </div>
+
+    <div class="footer-text-side">
+        <p style="
+            margin: 0; 
+            color: rgba(255, 255, 255, 0.7); /* خفضنا الإضاءة هنا (الشفافية) */
+            font-family: 'Cairo', sans-serif; 
+            font-size: 17px; 
+            line-height: 1.6;
+            letter-spacing: 0.3px;
+        ">
+          موقع <span style="color: #e8a020; font-weight: 700;">اعدادية الكرخ المهنية</span> 
+            من إبداع أحد طلابها 
+            "<span class="student-name" style="color: #e8a020; font-weight: 900; text-decoration: none;">أيهم أنور</span>" 
+            جميع الحقوق محفوظة   © 2026
+        </p>
+    </div>
+
+</div>
+<style>
+.custom-header-logo-large {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent !important;
+    padding: 10px; /* مسافة بسيطة لكي لا تلتصق بالحواف */
+    vertical-align: middle;
+}
+
+.custom-header-logo-large img {
+    height: 80px;      /* يمكنك تغيير هذا الرقم (مثلاً 100px) لتكبيرها أكثر */
+    width: auto;       /* يحافظ على تناسق الأبعاد */
+    display: block;
+    transition: transform 0.3s ease; /* إضافة نعومة عند التكبير */
+}
+
+/* حركة اختيارية: تكبر قليلاً عند مرور الماوس */
+.custom-header-logo-large img:hover {
+    transform: scale(1.1); 
+}
+</style>
+  </div>
+</footer>
+
+
+<!-- ==============================
+     CHATBOT
+============================== -->
+<button id="chatLaunch" class="chat-launch" title="الدردشة" aria-label="فتح المحادثة">
+  <svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v14l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 9h12v2H6V9zm0-4h12v2H6V5z"/></svg>
+</button>
+
+<div id="chatPanel" class="chat-panel" role="dialog" aria-label="المساعد الذكي">
+  <div class="chat-header">
+    <div class="chat-title">🤖 مساعد المدرسة الذكي</div>
+    <button id="chatClose" class="chat-close" aria-label="إغلاق">✕</button>
+  </div>
+  <div id="chatBody" class="chat-body" aria-live="polite"></div>
+  <div class="chat-input-area">
+    <div class="chat-input-row">
+      <input id="chatText" class="chat-input" type="text" placeholder="اكتب سؤالك هنا..." aria-label="رسالة">
+      <button id="chatSend" class="chat-send" aria-label="إرسال">➤</button>
+    </div>
+    <div id="chatSuggest" class="suggest-row">
+      <span class="pill">مواد الحاسوب</span>
+      <span class="pill">قسم الذكاء الاصطناعي</span>
+      <span class="pill">الإعفاء</span>
+      <span class="pill">بعد التخرج</span>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/main.js"></script>
 </body>
 </html>
