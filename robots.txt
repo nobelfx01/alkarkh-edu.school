@@ -1,10 +1,3 @@
 User-agent: *
-Allow: /
-Allow: /pages/
-
-# حظر ملفات النظام والأيقونات (لا يحتاج الزوار لرؤيتها في نتائج البحث)
-Disallow: /icons/
-Disallow: /manifest.json
-
-# خريطة الموقع (تأكد من الرابط الكامل)
-Sitemap: https://alkarkh-edu.school/sitemap.xml
+Disallow: /pages/
+Allow: /$
